@@ -8,8 +8,8 @@ interface Stat {
 }
 
 const staticStats: Stat[] = [
-  { value: '5', label: 'Language stacks (TS, Python, Java, C#, JS)' },
-  { value: '7', label: 'Test frameworks in production-style CI' },
+  { value: '4+', label: 'Public stacks (TS, Python, Java, JS)' },
+  { value: '7', label: 'Frameworks & curricula in the portfolio' },
   { value: 'UI · API · a11y · visual · perf', label: 'Test types covered' },
 ]
 
@@ -27,7 +27,7 @@ export default function Highlights() {
   }, [])
 
   return (
-    <section className="section" aria-label="Highlights">
+    <section className="section highlights" aria-label="Highlights">
       <div className="container stats-grid">
         {[repoStat, ...staticStats].map((s) => (
           <div className="stat-card" key={s.label}>

@@ -3,8 +3,7 @@ export const profile = {
   title: 'Senior QA Automation Engineer / SDET',
   location: 'Costa Rica',
   pitch:
-    'I build production-style QA automation systems that companies can verify in public: ' +
-    'cross-stack frameworks, CI dashboards, Allure evidence, and open-source quality governance for AI-era teams.',
+    'Production-style QA systems you can verify in public — cross-stack frameworks, live CI evidence, Allure reports, and open-source quality governance for AI-era teams.',
   github: 'https://github.com/dsolisp',
   githubUser: 'dsolisp',
   linkedin: 'https://www.linkedin.com/in/danieleduardosolisprado/',
@@ -52,7 +51,7 @@ export const ciRepos: CiRepo[] = [
     repo: 'CypressProject',
     label: 'Cypress',
     stack: 'TypeScript · Cypress',
-    allureWorkflow: 'Full Test Suite',
+    allureWorkflow: 'Nightly Test Suite',
     allureSuite: 'sauce',
   },
   {
@@ -65,7 +64,7 @@ export const ciRepos: CiRepo[] = [
     repo: 'PythonSeleniumProject',
     label: 'Python Selenium',
     stack: 'Python · pytest · Selenium',
-    allureWorkflow: 'QA Automation CI/CD Pipeline',
+    allureWorkflow: 'Nightly Test Suite',
   },
   { repo: 'gavel', label: 'Gavel', stack: 'Node.js · npm package' },
 ]
@@ -167,11 +166,3 @@ export const gavelSpotlight = {
     architectureUrl: 'https://github.com/dsolisp/gavel/blob/main/docs/ARCHITECTURE.md',
   },
 }
-
-export const technologies = [
-  'Python', 'Java', 'C#', 'TypeScript', 'JavaScript',
-  'Playwright', 'Selenium WebDriver', 'Cypress', 'pytest', 'JUnit 5', 'Vitest',
-  'SpecFlow', 'Cucumber', 'REST Assured', 'k6', 'Locust', 'Gatling',
-  'DeepEval', 'Ragas', 'Allure', 'GitHub Actions', 'Docker', 'Selenium Grid',
-  'axe-core', 'OpenTelemetry', 'SQLite', 'Maven', 'pnpm',
-]
