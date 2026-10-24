@@ -235,27 +235,40 @@ a:hover {
   color: var(--accent);
 }
 
-/* Theme toggle */
-.theme-toggle {
+/* Language + theme toggles */
+.chrome-toggles {
   position: fixed;
   top: 0.7rem;
   right: 1rem;
   z-index: 9999;
-  width: 2.5rem;
-  height: 2.5rem;
+  display: flex;
+  gap: 0.45rem;
+}
+
+.lang-toggle,
+.theme-toggle {
+  min-width: 2.7rem;
+  height: 2.35rem;
+  padding: 0 0.65rem;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--panel);
   color: var(--text);
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(10px);
-  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  transition:
+    border-color 0.2s var(--ease),
+    background 0.2s var(--ease);
 }
 
+.lang-toggle:hover,
 .theme-toggle:hover {
   border-color: var(--accent);
 }

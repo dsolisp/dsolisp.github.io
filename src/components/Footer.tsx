@@ -1,16 +1,18 @@
-import { architectureLink, profile } from '../config.ts'
+import { architectureHref, profile } from '../config.ts'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 
 export default function Footer() {
+  const { t } = useLocale()
   return (
     <footer className="footer">
       <div className="container footer-inner">
         <p>
           {profile.name} · {profile.location}
         </p>
-        <nav aria-label="Footer links">
-          <a href="#ci-lab">CI Lab</a>
-          <a href="#gavel">Gavel</a>
-          <a href={architectureLink.href}>Architecture</a>
+        <nav aria-label={t.footer.linksAria}>
+          <a href="#ci-lab">{t.nav.ciLab}</a>
+          <a href="#gavel">{t.nav.gavel}</a>
+          <a href={architectureHref}>{t.nav.architecture}</a>
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
@@ -18,16 +20,16 @@ export default function Footer() {
             LinkedIn
           </a>
           <a href={profile.resumeUrl} target="_blank" rel="noreferrer">
-            Resume
+            {t.footer.resume}
           </a>
           <a href={profile.dashboardUrl} target="_blank" rel="noreferrer">
-            QA Dashboard
+            {t.footer.dashboard}
           </a>
         </nav>
         <p className="footer-note">
-          Static site (React + Vite) on GitHub Pages · live data from the GitHub REST API ·{' '}
+          {t.footer.noteBefore}{' '}
           <a href={`${profile.github}/dsolisp.github.io`} target="_blank" rel="noreferrer">
-            source
+            {t.footer.source}
           </a>
         </p>
       </div>

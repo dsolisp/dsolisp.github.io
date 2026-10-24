@@ -1,22 +1,24 @@
 import { gavelSpotlight, profile } from '../config.ts'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 
 export default function Hero() {
+  const { t } = useLocale()
   return (
     <header className="hero">
       <div className="hero-atmosphere" aria-hidden="true" />
       <div className="container hero-inner">
         <p className="hero-meta">
-          {profile.location} · Remote-ready
+          {profile.location} · {t.hero.remoteReady}
         </p>
         <h1 className="brand">{profile.name}</h1>
-        <p className="hero-headline">{profile.title}</p>
-        <p className="hero-pitch">{profile.pitch}</p>
+        <p className="hero-headline">{t.hero.title}</p>
+        <p className="hero-pitch">{t.hero.pitch}</p>
         <nav className="hero-actions" aria-label="Primary links">
           <a className="btn btn-primary" href="#ci-lab">
-            Live CI Lab
+            {t.hero.ctaCi}
           </a>
           <a className="btn" href={gavelSpotlight.npmUrl} target="_blank" rel="noreferrer">
-            Gavel on npm
+            {t.hero.ctaGavel}
           </a>
         </nav>
       </div>

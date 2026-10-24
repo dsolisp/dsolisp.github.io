@@ -3,14 +3,18 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './styles.css'
 
-// Apply saved theme before first paint to avoid flash (default: dark)
+// Apply saved theme + locale before first paint (defaults: dark, Spanish)
 ;(function () {
   try {
-    const saved = localStorage.getItem('portfolio-theme')
+    const savedTheme = localStorage.getItem('portfolio-theme')
     document.documentElement.dataset.theme =
-      saved === 'light' || saved === 'dark' ? saved : 'dark'
+      savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : 'dark'
+    const savedLocale = localStorage.getItem('portfolio-locale')
+    document.documentElement.lang =
+      savedLocale === 'en' || savedLocale === 'es' ? savedLocale : 'es'
   } catch {
     document.documentElement.dataset.theme = 'dark'
+    document.documentElement.lang = 'es'
   }
 })()
 

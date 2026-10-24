@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 
 const KEY = 'portfolio-theme'
 
@@ -30,15 +31,16 @@ export function useTheme() {
 
 export default function ThemeToggle() {
   const { theme, toggle } = useTheme()
+  const { t } = useLocale()
   return (
     <button
       type="button"
       className="theme-toggle"
       onClick={toggle}
-      title={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-      aria-label="Toggle theme"
+      title={theme === 'light' ? t.theme.toDark : t.theme.toLight}
+      aria-label={t.theme.aria}
     >
-      {theme === 'light' ? 'Dark' : 'Light'}
+      {theme === 'light' ? t.theme.toDark : t.theme.toLight}
     </button>
   )
 }

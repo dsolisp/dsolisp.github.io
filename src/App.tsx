@@ -7,14 +7,19 @@ import Projects from './components/Projects.tsx'
 import About from './components/About.tsx'
 import Footer from './components/Footer.tsx'
 import ThemeToggle from './components/ThemeToggle.tsx'
+import LangToggle from './components/LangToggle.tsx'
 import SiteNav from './components/SiteNav.tsx'
+import { LocaleProvider } from './i18n/LocaleContext.tsx'
 
 export default function App() {
   return (
-    <>
+    <LocaleProvider>
       <div id="top" />
       <SiteNav />
-      <ThemeToggle />
+      <div className="chrome-toggles">
+        <LangToggle />
+        <ThemeToggle />
+      </div>
       <Hero />
       <main>
         <Highlights />
@@ -25,6 +30,6 @@ export default function App() {
         <About />
       </main>
       <Footer />
-    </>
+    </LocaleProvider>
   )
 }
