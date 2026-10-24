@@ -8,10 +8,9 @@ export default function Footer() {
           {profile.name} · {profile.location}
         </p>
         <nav aria-label="Footer links">
+          <a href="#ci-lab">CI Lab</a>
+          <a href="#gavel">Gavel</a>
           <a href={architectureLink.href}>Architecture</a>
-          <a href={profile.dashboardUrl} target="_blank" rel="noreferrer">
-            QA Dashboard
-          </a>
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>
@@ -21,10 +20,13 @@ export default function Footer() {
           <a href={profile.resumeUrl} target="_blank" rel="noreferrer">
             Resume
           </a>
+          <a href={profile.dashboardUrl} target="_blank" rel="noreferrer">
+            QA Dashboard
+          </a>
         </nav>
         <p className="footer-note">
           Static site (React + Vite) on GitHub Pages · live data from the GitHub REST API ·{' '}
-          <a href={`${profile.github}/portfolio`} target="_blank" rel="noreferrer">
+          <a href={`${profile.github}/dsolisp.github.io`} target="_blank" rel="noreferrer">
             source
           </a>
         </p>

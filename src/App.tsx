@@ -7,17 +7,20 @@ import Projects from './components/Projects.tsx'
 import About from './components/About.tsx'
 import Footer from './components/Footer.tsx'
 import ThemeToggle from './components/ThemeToggle.tsx'
+import SiteNav from './components/SiteNav.tsx'
 
 export default function App() {
   return (
     <>
+      <div id="top" />
+      <SiteNav />
       <ThemeToggle />
       <Hero />
       <main>
         <Highlights />
         <CiLab />
-        <Architecture />
         <Spotlight />
+        <Architecture />
         <Projects />
         <About />
       </main>

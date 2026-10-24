@@ -65,13 +65,13 @@ export default function Architecture() {
       <div className="container">
         <h2>CI/CD Pipeline Architecture</h2>
         <p className="section-intro">
-          The end-to-end data flow behind the Live CI Lab above: how a git push becomes a
-          public, verifiable test report. Five stages, four test stacks, zero servers to
-          maintain.
+          How a git push becomes a public, verifiable test report: GitHub Actions runs the
+          stacks in parallel, Allure + summary.json land on Cloudflare R2, and this site
+          (plus the QA Dashboard) present live status — no app servers to maintain.
         </p>
         <PipelineDiagram />
-        <ol className="arch-flow">
-          {stages.map((s, i) => (
+        <ol className="arch-flow arch-flow-compact">
+          {stages.map((s) => (
             <li className="arch-node" key={s.step}>
               <div className="arch-node-inner">
                 <header className="arch-node-header">
@@ -92,23 +92,20 @@ export default function Architecture() {
                   ))}
                 </ul>
               </div>
-              {i < stages.length - 1 && (
-                <div className="arch-arrow" aria-hidden="true">
-                  ▼
-                </div>
-              )}
             </li>
           ))}
         </ol>
         <p className="arch-footnote">
-          See it live: the <a href="#ci-lab">CI Lab</a> cards are rendered from stage 05 in
-          real time, Allure reports are served straight from{' '}
-          <a href={allureR2BaseUrl} target="_blank" rel="noreferrer">
-            the R2 bucket
-          </a>
-          , and every workflow file is public on{' '}
+          See it live: the <a href="#ci-lab">CI Lab</a> is rendered from stage 05 in real
+          time, Allure HTML reports are served from Cloudflare R2
+          {allureR2BaseUrl ? ' when a matching nightly upload exists' : ''}, and every
+          workflow file is public on{' '}
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
+          </a>
+          . Metrics also feed the{' '}
+          <a href={profile.dashboardUrl} target="_blank" rel="noreferrer">
+            QA Dashboard
           </a>
           .
         </p>

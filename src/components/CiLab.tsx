@@ -2,23 +2,57 @@ import { useEffect, useState } from 'react'
 import { allureR2BaseUrl, ciRepos, profile } from '../config.ts'
 import {
   fetchWorkflowRuns,
-  latestCompletedRunForWorkflow,
   latestRunPerWorkflow,
   relativeTime,
   runDuration,
   type WorkflowRun,
 } from '../lib/github.ts'
+import {
+  fetchSummaries,
+  latestNonzeroSummary,
+  summaryForRun,
+  type RepoSummary,
+} from '../lib/summaries.ts'
 
 type RunsByRepo = Record<string, WorkflowRun[] | 'error'>
+type AllureByRepo = Record<string, string | undefined>
 
 function buildAllureUrl(
   repo: string,
-  runId: number,
+  runId: number | string,
   suite: string | undefined,
 ): string {
   const base = allureR2BaseUrl.replace(/\/$/, '')
   const path = suite ? `${repo}/${runId}/${suite}/index.html` : `${repo}/${runId}/index.html`
   return `${base}/${path}`
+}
+
+/**
+ * Prefer the newest completed Nightly run that has a nonzero dashboard summary.
+ * Fall back to the latest nonzero summary row for that repo (still a real report).
+ * Never link empty Allure shells (total === 0).
+ */
+function resolveAllureUrl(
+  repo: string,
+  workflowName: string | undefined,
+  suite: string | undefined,
+  runs: WorkflowRun[],
+  summaries: RepoSummary[],
+): string | undefined {
+  if (!allureR2BaseUrl || !workflowName) return undefined
+
+  const completed = runs.filter(
+    (r) => r.name === workflowName && r.status === 'completed',
+  )
+  for (const run of completed) {
+    if (summaryForRun(summaries, repo, run.id, suite)) {
+      return buildAllureUrl(repo, run.id, suite)
+    }
+  }
+
+  const fallback = latestNonzeroSummary(summaries, repo, suite)
+  if (fallback) return buildAllureUrl(repo, fallback.run_id, suite)
+  return undefined
 }
 
 function statusInfo(run: WorkflowRun): { cls: string; text: string } {
@@ -37,14 +71,36 @@ function statusInfo(run: WorkflowRun): { cls: string; text: string } {
 
 export default function CiLab() {
   const [runs, setRuns] = useState<RunsByRepo>({})
+  const [allureLinks, setAllureLinks] = useState<AllureByRepo>({})
 
   useEffect(() => {
-    for (const { repo } of ciRepos) {
-      fetchWorkflowRuns(profile.githubUser, repo)
-        .then((all) =>
-          setRuns((prev) => ({ ...prev, [repo]: latestRunPerWorkflow(all).slice(0, 3) })),
-        )
-        .catch(() => setRuns((prev) => ({ ...prev, [repo]: 'error' })))
+    let cancelled = false
+
+    fetchSummaries()
+      .catch(() => [] as RepoSummary[])
+      .then((summaries) => {
+        for (const { repo, allureWorkflow, allureSuite } of ciRepos) {
+          fetchWorkflowRuns(profile.githubUser, repo)
+            .then((all) => {
+              if (cancelled) return
+              setRuns((prev) => ({ ...prev, [repo]: latestRunPerWorkflow(all).slice(0, 3) }))
+              const url = resolveAllureUrl(repo, allureWorkflow, allureSuite, all, summaries)
+              if (url) {
+                setAllureLinks((prev) => ({ ...prev, [repo]: url }))
+              }
+            })
+            .catch(() => {
+              if (cancelled) return
+              setRuns((prev) => ({ ...prev, [repo]: 'error' }))
+              // Still try summary-only Allure when GitHub API is rate-limited
+              const url = resolveAllureUrl(repo, allureWorkflow, allureSuite, [], summaries)
+              if (url) setAllureLinks((prev) => ({ ...prev, [repo]: url }))
+            })
+        }
+      })
+
+    return () => {
+      cancelled = true
     }
   }, [])
 
@@ -53,23 +109,13 @@ export default function CiLab() {
       <div className="container">
         <h2>Live CI Lab</h2>
         <p className="section-intro">
-          Real pipelines, real results — fetched from the GitHub Actions API as you read this.
-          Every framework runs lint, unit and E2E suites in CI. Click a run to inspect logs,
-          reports and artifacts on GitHub.
+          Workflow status comes from the GitHub Actions API. Allure links appear only when a
+          published report has real results (nonzero test totals) — empty shells are hidden.
         </p>
         <div className="ci-grid">
-          {ciRepos.map(({ repo, label, stack, allureWorkflow, allureSuite }) => {
+          {ciRepos.map(({ repo, label, stack }) => {
             const repoRuns = runs[repo]
-
-            // Allure report link: find the latest successful nightly run and build the R2 URL
-            const allureRun =
-              allureWorkflow && Array.isArray(repoRuns)
-                ? latestCompletedRunForWorkflow(repoRuns, allureWorkflow)
-                : undefined
-            const allureUrl =
-              allureR2BaseUrl && allureRun
-                ? buildAllureUrl(repo, allureRun.id, allureSuite)
-                : undefined
+            const allureUrl = allureLinks[repo]
 
             return (
               <article className="ci-card" key={repo}>
@@ -84,7 +130,10 @@ export default function CiLab() {
                     <a href={`${profile.github}/${repo}/actions`}>GitHub</a>.
                   </p>
                 )}
-                {Array.isArray(repoRuns) && (
+                {Array.isArray(repoRuns) && repoRuns.length === 0 && (
+                  <p className="ci-note">No recent workflow runs found.</p>
+                )}
+                {Array.isArray(repoRuns) && repoRuns.length > 0 && (
                   <ul className="run-list">
                     {repoRuns.map((run) => {
                       const s = statusInfo(run)
@@ -108,7 +157,7 @@ export default function CiLab() {
                   </a>
                   {allureUrl && (
                     <a className="allure-link" href={allureUrl} target="_blank" rel="noreferrer">
-                      📊 Allure report →
+                      Allure report →
                     </a>
                   )}
                 </footer>
