@@ -8,6 +8,7 @@ export const ArchitectureScene: React.FC = () => {
     <SceneShell>
       <ShotPan
         src="shots/architecture.png"
+        mobileSrc="shots/architecture-mobile.png"
         startScale={1.05}
         endScale={1.13}
         startY={0}

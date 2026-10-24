@@ -8,6 +8,7 @@ export const ProjectsScene: React.FC = () => {
     <SceneShell>
       <ShotPan
         src="shots/projects.png"
+        mobileSrc="shots/projects-mobile.png"
         startScale={1.05}
         endScale={1.14}
         startY={0}

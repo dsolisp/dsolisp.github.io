@@ -2,6 +2,15 @@
 
 Video tour of [dsolisp.github.io](https://dsolisp.github.io) — hero, CI Lab, Gavel, architecture, projects, about, outro.
 
+## Compositions
+
+| ID | Format | Use |
+| --- | --- | --- |
+| `PortfolioTour` | 1920×1080 (16:9) | YouTube / LinkedIn / site |
+| `PortfolioTourMobile` | 1080×1920 (9:16) | TikTok / Instagram Reels |
+
+Scenes adapt via `useTourLayout()` — vertical keeps copy clear of TikTok/IG chrome (top status + bottom caption UI).
+
 ## Preview
 
 ```bash
@@ -10,12 +19,17 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000/PortfolioTour` in Remotion Studio.
+- Landscape: `http://localhost:3000/PortfolioTour`
+- Vertical: `http://localhost:3000/PortfolioTourMobile`
 
 ## Render
 
 ```bash
+# Landscape
 npx remotion render PortfolioTour out/portfolio-tour.mp4
+
+# TikTok / Instagram Reels
+npx remotion render PortfolioTourMobile out/portfolio-tour-mobile.mp4
 ```
 
 ## Scenes

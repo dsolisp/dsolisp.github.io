@@ -8,6 +8,7 @@ export const GavelScene: React.FC = () => {
     <SceneShell>
       <ShotPan
         src="shots/gavel.png"
+        mobileSrc="shots/gavel-mobile.png"
         startScale={1.04}
         endScale={1.12}
         startY={0}

@@ -7,6 +7,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { useTourLayout } from "../layout";
 import { colors, fonts } from "../theme";
 
 type SceneCaptionProps = {
@@ -22,12 +23,16 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const layout = useTourLayout();
 
   return (
     <AbsoluteFill
       style={{
         justifyContent: "flex-end",
-        padding: "0 72px 64px",
+        paddingTop: layout.safeTop,
+        paddingBottom: layout.safeBottom,
+        paddingLeft: layout.safeX,
+        paddingRight: layout.safeX + layout.safeRightExtra,
         pointerEvents: "none",
       }}
     >
@@ -35,8 +40,9 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
         name="Caption card"
         premountFor={fps}
         style={{
-          maxWidth: 920,
-          padding: "28px 32px",
+          width: "100%",
+          maxWidth: layout.vertical ? undefined : 920,
+          padding: layout.vertical ? "24px 26px" : "28px 32px",
           borderRadius: 16,
           border: `1px solid ${colors.border}`,
           backgroundColor: colors.panel,
@@ -56,7 +62,7 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
         <div
           style={{
             color: colors.accent,
-            fontSize: 22,
+            fontSize: layout.captionKicker,
             fontWeight: 700,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
@@ -68,7 +74,7 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
         <div
           style={{
             fontFamily: fonts.display,
-            fontSize: 54,
+            fontSize: layout.captionTitle,
             fontWeight: 800,
             letterSpacing: "-0.03em",
             lineHeight: 1.05,
@@ -80,9 +86,9 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
         <div
           style={{
             color: colors.muted,
-            fontSize: 28,
+            fontSize: layout.captionLine,
             lineHeight: 1.35,
-            maxWidth: 820,
+            maxWidth: layout.vertical ? "100%" : 820,
           }}
         >
           {line}
