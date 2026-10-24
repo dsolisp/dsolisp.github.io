@@ -26,7 +26,7 @@ const es: Messages = {
     remoteReady: 'Remote-ready',
     title: 'QA Automation Architect',
     pitch:
-      'Diseño sistemas de QA Automation multi-stack mantenibles y quality gates para equipos de la era de la IA, de modo que el código de pruebas escale tanto si lo escriben personas como agentes. La evidencia está a la vista: CI en vivo, reportes Allure y Gavel aplicando una Test Constitution entre repositorios.',
+      'Diseño sistemas de QA Automation multi-stack mantenibles y quality gates para equipos de la era de la IA, de modo que el código de pruebas escale tanto si lo escriben personas como agentes. Evidencia en CI en vivo, reportes Allure y Gavel aplicando una Test Constitution entre repositorios.',
     ctaCi: 'CI Lab en vivo',
     ctaGavel: 'Gavel en npm',
   },
