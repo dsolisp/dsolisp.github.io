@@ -12,33 +12,36 @@ export default function Architecture() {
         <h2>{a.title}</h2>
         <p className="section-intro">{a.intro}</p>
         <PipelineDiagram />
-        <ol className="arch-flow arch-flow-compact">
-          {a.stages.map((s) => (
-            <li className="arch-node" key={s.step}>
-              <div className="arch-node-inner">
-                <header className="arch-node-header">
-                  <span className="arch-step">{s.step}</span>
-                  <h3>{s.title}</h3>
-                </header>
-                {s.step === '02' && (
-                  <div className="arch-parallel" aria-label={a.parallelAria}>
-                    {archParallel.map((p) => (
-                      <span className="arch-lane" key={p}>
-                        {p}
-                      </span>
+        <details className="arch-details">
+          <summary>{a.detailsSummary}</summary>
+          <ol className="arch-flow arch-flow-compact">
+            {a.stages.map((s) => (
+              <li className="arch-node" key={s.step}>
+                <div className="arch-node-inner">
+                  <header className="arch-node-header">
+                    <span className="arch-step">{s.step}</span>
+                    <h3>{s.title}</h3>
+                  </header>
+                  {s.step === '02' && (
+                    <div className="arch-parallel" aria-label={a.parallelAria}>
+                      {archParallel.map((p) => (
+                        <span className="arch-lane" key={p}>
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <p className="arch-desc">{s.description}</p>
+                  <ul className="tag-list">
+                    {(archTech[s.step] ?? []).slice(0, 3).map((tech) => (
+                      <li key={tech}>{tech}</li>
                     ))}
-                  </div>
-                )}
-                <p className="arch-desc">{s.description}</p>
-                <ul className="tag-list">
-                  {(archTech[s.step] ?? []).map((tech) => (
-                    <li key={tech}>{tech}</li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ol>
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </details>
         <p className="arch-footnote">
           {a.footnoteBefore} <a href="#ci-lab">{t.nav.ciLab}</a> {a.footnoteMid}{' '}
           <a href={profile.github} target="_blank" rel="noreferrer">

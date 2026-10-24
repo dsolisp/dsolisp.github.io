@@ -1,5 +1,6 @@
 import SiteNav from '../components/SiteNav.tsx'
 import Footer from '../components/Footer.tsx'
+import HeroVisual from '../components/HeroVisual.tsx'
 import { gavelSpotlight as g } from '../config.ts'
 import { useLocale } from '../i18n/LocaleContext.tsx'
 
@@ -13,6 +14,9 @@ export default function GavelCase() {
       <SiteNav />
       <main>
         <header className="gavel-case-hero section">
+          <div className="gavel-case-hero-visual" aria-hidden="true">
+            <HeroVisual />
+          </div>
           <div className="container gavel-case-hero-inner">
             <p className="hero-meta">{c.eyebrow}</p>
             <h1 className="gavel-case-brand">{c.title}</h1>
@@ -24,10 +28,10 @@ export default function GavelCase() {
               <a className="btn" href={g.repoUrl} target="_blank" rel="noreferrer">
                 {t.gavel.repository}
               </a>
-              <a className="btn" href="/">
-                {c.backHome}
-              </a>
             </nav>
+            <p className="gavel-case-back">
+              <a href="/">{c.backHome}</a>
+            </p>
           </div>
         </header>
 

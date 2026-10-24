@@ -18,6 +18,7 @@ function ProjectCard({
   description: string
   sourceOnRequest: string
 }) {
+  const tags = p.tags.slice(0, 3)
   return (
     <article className={`project-card${compact ? ' project-card-compact' : ''}`}>
       <header className="project-header">
@@ -37,7 +38,7 @@ function ProjectCard({
       <p className="project-tagline">{tagline}</p>
       {!compact && <p>{description}</p>}
       <ul className="tag-list">
-        {p.tags.map((tag) => (
+        {tags.map((tag) => (
           <li key={tag}>{tag}</li>
         ))}
       </ul>
@@ -55,7 +56,7 @@ export default function Projects() {
       <div className="container">
         <h2>{t.projects.title}</h2>
         <p className="section-intro">{t.projects.intro}</p>
-        <div className="project-grid">
+        <div className="project-grid project-grid-frameworks">
           {frameworks.map((p) => {
             const copy = t.projects.items[p.name]
             return (

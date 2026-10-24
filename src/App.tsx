@@ -1,5 +1,4 @@
 import Hero from './components/Hero.tsx'
-import Highlights from './components/Highlights.tsx'
 import CiLab from './components/CiLab.tsx'
 import Architecture from './components/Architecture.tsx'
 import Spotlight from './components/Spotlight.tsx'
@@ -16,7 +15,6 @@ export default function App() {
       <SiteNav />
       <Hero />
       <main>
-        <Highlights />
         <CiLab />
         <Spotlight />
         <Architecture />

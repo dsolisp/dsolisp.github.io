@@ -10,6 +10,7 @@ export interface Messages {
   metaDescription: string
   nav: {
     sectionsAria: string
+    menu: string
     ciLab: string
     gavel: string
     projects: string
@@ -90,6 +91,7 @@ export interface Messages {
     title: string
     intro: string
     parallelAria: string
+    detailsSummary: string
     footnoteBefore: string
     footnoteMid: string
     footnoteGithub: string
@@ -106,6 +108,7 @@ export interface Messages {
   about: {
     title: string
     intro: string
+    skillsAria: string
     groups: { heading: string; items: string[] }[]
   }
   footer: {

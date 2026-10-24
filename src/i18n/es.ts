@@ -6,6 +6,7 @@ const es: Messages = {
     'Daniel Solis, QA Automation Architect (Costa Rica, remote-ready). Diseña sistemas de QA Automation multi-stack mantenibles y Gavel: quality gates open-source en CI para equipos de la era de la IA.',
   nav: {
     sectionsAria: 'Secciones',
+    menu: 'Menú',
     ciLab: 'CI Lab',
     gavel: 'Gavel',
     projects: 'Proyectos',
@@ -108,6 +109,7 @@ const es: Messages = {
     intro:
       'De un git push a evidencia pública: Actions corre los stacks en paralelo bajo quality gates (Gavel + Test Constitution donde aplica), Allure y summary.json aterrizan en R2, y este sitio más el QA Dashboard muestran el estado en vivo — sin servidores de aplicación.',
     parallelAria: 'Suites en paralelo',
+    detailsSummary: 'Detalle por etapa',
     footnoteBefore: 'En vivo: el',
     footnoteMid:
       'se arma desde la etapa 05 en tiempo real; los HTML de Allure salen de Cloudflare R2 cuando hay un upload nightly válido; y cada workflow está público en',
@@ -193,23 +195,25 @@ const es: Messages = {
   about: {
     title: 'Acerca de',
     intro:
-      'QA Automation Architect en Costa Rica, remote-ready. Diseño las bases de la automatización multi-stack — page objects en capas, locators accessibility-first, fixtures para DI, datos herméticos y evidencia CI-first — y superviso la calidad cuando el código de pruebas lo escriben personas y agentes de IA. Gavel convierte esa constitución en un gate continuo. Los stacks de abajo muestran amplitud; el producto son sistemas de calidad mantenibles que cualquiera puede verificar en público.',
+      'QA Automation Architect en Costa Rica, remote-ready. Diseño las bases de la automatización multi-stack — page objects en capas, locators accessibility-first, fixtures para DI, datos herméticos y evidencia CI-first — y superviso la calidad cuando el código de pruebas lo escriben personas y agentes de IA. Gavel convierte esa constitución en un gate continuo. El producto son sistemas de calidad mantenibles que cualquiera puede verificar en público.',
+    skillsAria: 'Stack principal',
     groups: [
       {
-        heading: 'Lenguajes',
-        items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C#'],
-      },
-      {
-        heading: 'Runners y frameworks',
-        items: ['Playwright', 'Selenium WebDriver', 'Cypress', 'pytest', 'JUnit 5', 'Vitest', 'SpecFlow', 'Cucumber'],
-      },
-      {
-        heading: 'API · performance · eval IA',
-        items: ['REST Assured', 'k6', 'Locust', 'Gatling', 'DeepEval', 'Ragas'],
-      },
-      {
-        heading: 'Reporting · CI · infra',
-        items: ['Allure', 'GitHub Actions', 'Docker', 'Selenium Grid', 'axe-core', 'OpenTelemetry', 'SQLite', 'Maven', 'pnpm'],
+        heading: 'Stack',
+        items: [
+          'TypeScript',
+          'Java',
+          'Python',
+          'C#',
+          'Playwright',
+          'Selenium',
+          'Cypress',
+          'pytest',
+          'Allure',
+          'GitHub Actions',
+          'REST Assured',
+          'DeepEval',
+        ],
       },
     ],
   },
