@@ -773,6 +773,64 @@ a:hover {
   margin-bottom: 1rem;
 }
 
+.gavel-case {
+  margin: 1.1rem 0 1.25rem;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.gavel-case-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.gavel-metrics {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+@media (min-width: 720px) {
+  .gavel-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.gavel-metrics li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--accent);
+}
+
+.gavel-metric-value {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.gavel-metric-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+.gavel-decision {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
 .bailiff-note {
   border-top: 1px solid var(--border);
   padding-top: 1rem;

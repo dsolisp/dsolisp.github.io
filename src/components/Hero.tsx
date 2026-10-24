@@ -1,4 +1,4 @@
-import { profile } from '../config.ts'
+import { gavelSpotlight, profile } from '../config.ts'
 
 export default function Hero() {
   return (
@@ -15,8 +15,8 @@ export default function Hero() {
           <a className="btn btn-primary" href="#ci-lab">
             Live CI Lab
           </a>
-          <a className="btn" href={profile.resumeUrl} target="_blank" rel="noreferrer">
-            Resume
+          <a className="btn" href={gavelSpotlight.npmUrl} target="_blank" rel="noreferrer">
+            Gavel on npm
           </a>
         </nav>
       </div>

@@ -1,9 +1,9 @@
 export const profile = {
   name: 'Daniel Solis',
-  title: 'Senior QA Automation Engineer / SDET',
+  title: 'QA Automation Architect',
   location: 'Costa Rica',
   pitch:
-    'Production-style QA systems you can verify in public — cross-stack frameworks, live CI evidence, Allure reports, and open-source quality governance for AI-era teams.',
+    'I design maintainable multi-stack QA systems and quality gates for AI-era teams — so test code stays scalable when humans and agents both write it. Public proof: live CI, Allure evidence, and Gavel enforcing a Test Constitution across repos.',
   github: 'https://github.com/dsolisp',
   githubUser: 'dsolisp',
   linkedin: 'https://www.linkedin.com/in/danieleduardosolisprado/',
@@ -154,6 +154,19 @@ export const gavelSpotlight = {
     'Cypress, WebdriverIO, Cucumber, Robot and pytest. It reviews test diffs, flags dead ' +
     'code, parses CI reports (JUnit, Allure, Playwright, Cypress) and clusters failures ' +
     'into drift vs bug vs env.',
+  caseStudy: {
+    label: 'Enterprise multi-repo engagement (anonymized)',
+    metrics: [
+      { value: '8', label: 'Repositories on the quality surface' },
+      { value: '5,000+', label: 'Baseline Gavel findings' },
+      { value: '~1,500', label: 'Remaining after roadmap (~70% reduction)' },
+      { value: '7 / 8', label: 'Repos with Gavel as a CI gate' },
+    ],
+    decision:
+      'Decision: fix the automation foundations first (layered page objects, a11y-first ' +
+      'locators, fixtures/DI, no sleeps) so the estate stays maintainable and scalable — ' +
+      'then keep Gavel as the continuous judge so the same classes of test-code debt do not return.',
+  },
   bailiff: {
     name: 'Bailiff',
     status: 'In design',
