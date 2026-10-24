@@ -398,6 +398,73 @@ a:hover {
     linear-gradient(180deg, transparent 52%, var(--bg) 100%);
 }
 
+/* Moving orbital rings — behind the CLI product plane */
+.hero-orbits {
+  position: absolute;
+  top: -8%;
+  right: max(-8vw, -3rem);
+  width: min(68vw, 620px);
+  aspect-ratio: 1;
+  z-index: 0;
+  animation: orbit-spin 52s linear infinite;
+}
+
+.hero-orbit {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.hero-orbit--outer {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-opacity: 0.7;
+}
+
+.hero-orbit--mid {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 9 12;
+  stroke-opacity: 0.55;
+  animation: orbit-spin 34s linear infinite reverse;
+  transform-origin: 320px 320px;
+}
+
+.hero-orbit--inner {
+  stroke: color-mix(in srgb, var(--accent) 65%, #9ec4ea);
+  stroke-width: 1.75;
+  stroke-opacity: 0.62;
+}
+
+.hero-orbit-dot {
+  fill: var(--accent);
+  fill-opacity: 1;
+}
+
+[data-theme='light'] .hero-orbit--outer {
+  stroke: color-mix(in srgb, var(--accent) 85%, #0a3d30);
+  stroke-opacity: 0.85;
+  stroke-width: 2.75;
+}
+
+[data-theme='light'] .hero-orbit--mid {
+  stroke: color-mix(in srgb, var(--accent) 75%, #10151d);
+  stroke-opacity: 0.7;
+}
+
+[data-theme='light'] .hero-orbit--inner {
+  stroke: color-mix(in srgb, var(--accent) 55%, #10151d);
+  stroke-opacity: 0.55;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Product plane: Gavel CLI — own column, never over brand */
 .hero-visual {
   position: relative;
@@ -1274,6 +1341,13 @@ a:hover {
     display: none;
   }
 
+  .hero-orbits {
+    right: -22vw;
+    width: min(88vw, 420px);
+    top: 18%;
+    opacity: 0.9;
+  }
+
   .hero-inner,
   .hero > .container.hero-inner {
     max-width: 100%;
@@ -1297,6 +1371,13 @@ a:hover {
     min-width: 2rem;
     padding: 0 0.4rem;
     font-size: 0.65rem;
+  }
+
+  .hero-orbits {
+    right: -28vw;
+    width: min(92vw, 380px);
+    top: 28%;
+    opacity: 0.85;
   }
 
   .gavel-case-brand {
