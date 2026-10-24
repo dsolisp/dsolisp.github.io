@@ -40,7 +40,7 @@ const es: Messages = {
   ciLab: {
     title: 'CI Lab en vivo',
     intro:
-      'El estado de los workflows viene de la API de GitHub Actions. Los enlaces Allure solo aparecen cuando el reporte publicado tiene resultados reales (totales distintos de cero) — no se enlazan shells vacíos.',
+      'Evidencia del estado del sistema desde GitHub Actions — los enlaces Allure solo aparecen cuando el reporte tiene resultados reales (totales distintos de cero).',
     loading: 'Cargando runs…',
     apiError: 'No se pudo alcanzar la API de GitHub (rate limit). Revisa los runs directamente en',
     noRuns: 'No hay workflow runs recientes.',
@@ -76,7 +76,7 @@ const es: Messages = {
   architecture: {
     title: 'Arquitectura del pipeline CI/CD',
     intro:
-      'De un git push a un reporte de pruebas público y verificable: GitHub Actions ejecuta los stacks en paralelo, Allure y summary.json aterrizan en Cloudflare R2, y este sitio — junto con el QA Dashboard — muestra el estado en vivo, sin servidores de aplicación que operar.',
+      'De un git push a evidencia pública: Actions corre los stacks en paralelo bajo quality gates (Gavel + Test Constitution donde aplica), Allure y summary.json aterrizan en R2, y este sitio más el QA Dashboard muestran el estado en vivo — sin servidores de aplicación.',
     parallelAria: 'Suites en paralelo',
     footnoteBefore: 'En vivo: el',
     footnoteMid:
@@ -119,44 +119,44 @@ const es: Messages = {
   projects: {
     title: 'Proyectos',
     intro:
-      'Los frameworks principales prueban las mismas aplicaciones (SauceDemo, practice app local, APIs REST públicas y SQLite) con estándares de arquitectura compartidos, para poder comparar stacks de frente.',
+      'Los frameworks principales prueban las mismas apps con estándares de arquitectura compartidos — los stacks se pueden comparar de frente.',
     also: 'También en el portafolio',
     sourceOnRequest: 'código bajo solicitud',
     items: {
       PlaywrightProject: {
         tagline: 'Framework E2E insignia',
         description:
-          'UI E2E, API/schema, unitarias, BDD (playwright-bdd), visual, accesibilidad (Axe) y performance con OpenTelemetry. Page Object Model con locators espejo, fixtures para DI y Allure.',
+          'Stack de referencia multi-capa — UI, API, visual, a11y y performance con POM compartido y fixtures.',
       },
       PythonSeleniumProject: {
         tagline: 'Stack con más trayectoria (2024)',
         description:
-          'UI (Selenium + smoke con Playwright), API, DB, visual, accesibilidad, Locust y seguimiento de flaky tests. Corridas herméticas contra la practice app y SQLite compartidos.',
+          'El de más trayectoria: UI, API, DB, visual, a11y y Locust herméticos sobre las mismas practice apps.',
       },
       JavaSeleniumProject: {
         tagline: 'Stack Java de corte enterprise',
         description:
-          'UI, API con REST Assured, DB, visual (Shutterbug), Axe y Gatling. Maven, JUnit 5, listo para Docker/Selenium Grid, con capa BDD Cucumber opcional.',
+          'Cobertura Java enterprise — UI, REST Assured, Gatling — lista para Docker/Grid sobre las mismas apps.',
       },
       CypressProject: {
         tagline: 'Testing web orientado a componentes',
         description:
-          'Specs de UI, API y unitarias, image-diff visual, accesibilidad, capa SQLite hermética y OpenTelemetry en Cypress. Pipeline Lighthouse opcional.',
+          'Cobertura web de era de componentes: UI, API, visual, a11y y Lighthouse opcional.',
       },
       CSharpSeleniumProject: {
         tagline: 'Librería de framework .NET',
         description:
-          'Librería más pruebas unitarias, API, web y SpecFlow BDD con FluentAssertions y Allure; las mismas aplicaciones bajo prueba que el stack Python.',
+          'Librería .NET privada + SpecFlow sobre las mismas apps bajo prueba.',
       },
       'LLM Testing & Agentic Engineering Masterclass': {
         tagline: 'Curriculum QA para la era de la IA',
         description:
-          'Ruta de cero a avanzado para probar aplicaciones LLM: DeepEval, Ragas, evaluación RAG, locators self-healing y OpenTelemetry para agentes.',
+          'Curriculum de cero a avanzado en eval LLM/RAG — DeepEval, Ragas y patrones de QA agéntica.',
       },
       'API Automation Engineering Masterclass': {
         tagline: 'Curriculum API SDET',
         description:
-          'Guía de cero a avanzado en API testing: REST Assured, validación de schema frente a contratos consumer-driven, k6 y reuso de sesión.',
+          'Ruta API SDET de cero a avanzado: contratos, REST Assured y k6.',
       },
     },
   },
