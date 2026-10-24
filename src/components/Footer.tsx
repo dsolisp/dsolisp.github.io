@@ -10,9 +10,9 @@ export default function Footer() {
           {profile.name} · {profile.location}
         </p>
         <nav aria-label={t.footer.linksAria}>
-          <a href="#ci-lab">{t.nav.ciLab}</a>
-          <a href="#gavel">{t.nav.gavel}</a>
-          <a href={architectureHref}>{t.nav.architecture}</a>
+          <a href="/#ci-lab">{t.nav.ciLab}</a>
+          <a href="/gavel/">{t.nav.gavel}</a>
+          <a href={`/${architectureHref}`}>{t.nav.architecture}</a>
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>

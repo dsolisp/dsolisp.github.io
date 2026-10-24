@@ -32,6 +32,7 @@ export interface Messages {
     pitch: string
     ctaCi: string
     ctaGavel: string
+    ctaGavelCase: string
   }
   highlights: {
     aria: string
@@ -62,9 +63,28 @@ export interface Messages {
     decision: string
     repository: string
     npmCta: string
+    caseCta: string
     bailiffStatus: string
     bailiffSummary: string
     bailiffDoc: string
+  }
+  gavelCase: {
+    documentTitle: string
+    documentDescription: string
+    eyebrow: string
+    title: string
+    lede: string
+    ctaAria: string
+    backHome: string
+    problemTitle: string
+    problem: string
+    approachTitle: string
+    approach: string
+    constitution: string[]
+    engagementTitle: string
+    metricsAria: string
+    proofTitle: string
+    proof: string
   }
   architecture: {
     title: string
