@@ -3,7 +3,7 @@ import type { Messages } from './types.ts'
 const en: Messages = {
   metaTitle: 'Daniel Solis — QA Automation Architect | Agentic Quality · Costa Rica Remote',
   metaDescription:
-    'Daniel Solis, QA Automation Architect (Costa Rica, remote-ready). Designs maintainable multi-stack test systems and Gavel — open-source CI quality gates for AI-era engineering teams.',
+    'Daniel Solis, QA Automation Architect (Costa Rica, remote-ready). Designs maintainable multi-stack QA Automation systems and Gavel — open-source CI quality gates for AI-era engineering teams.',
   nav: {
     sectionsAria: 'Sections',
     ciLab: 'CI Lab',
@@ -26,7 +26,7 @@ const en: Messages = {
     remoteReady: 'Remote-ready',
     title: 'QA Automation Architect',
     pitch:
-      'I design maintainable multi-stack QA systems and quality gates for AI-era teams — so test code stays scalable when humans and agents both write it. Public proof: live CI, Allure evidence, and Gavel enforcing a Test Constitution across repos.',
+      'I design maintainable multi-stack QA Automation systems and quality gates for AI-era teams — so test code stays scalable when humans and agents both write it. Public proof: live CI, Allure evidence, and Gavel enforcing a Test Constitution across repos.',
     ctaCi: 'Live CI Lab',
     ctaGavel: 'Gavel on npm',
   },
@@ -163,7 +163,7 @@ const en: Messages = {
   about: {
     title: 'About',
     intro:
-      'QA Automation Architect based in Costa Rica and remote-ready. I design the foundations of multi-stack automation — layered page objects, accessibility-first locators, fixtures for DI, hermetic data, CI-first evidence — and supervise quality when humans and AI agents both write test code. Gavel encodes that constitution as a continuous gate. Supporting stacks below are evidence of breadth; the product is maintainable quality systems you can verify in public.',
+      'QA Automation Architect based in Costa Rica and remote-ready. I design the foundations of multi-stack QA Automation — layered page objects, accessibility-first locators, fixtures for DI, hermetic data, CI-first evidence — and supervise quality when humans and AI agents both write test code. Gavel encodes that constitution as a continuous gate. Supporting stacks below are evidence of breadth; the product is maintainable quality systems you can verify in public.',
     groups: [
       {
         heading: 'Languages',
