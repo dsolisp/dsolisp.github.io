@@ -13,6 +13,8 @@ const figtree = loadFigtree("normal", {
 
 export const fonts = {
   display: syne.fontFamily,
+  /** Prefer for vertical / social — Syne’s wide glyphs read as “stretched” in 9:16. */
+  displayTight: figtree.fontFamily,
   body: figtree.fontFamily,
 };
 

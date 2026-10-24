@@ -17,7 +17,7 @@ export const ArchitectureScene: React.FC = () => {
       <SceneCaption
         kicker="04 · Pipeline"
         title="Del push a la prueba"
-        line="Actions en paralelo → Allure + R2 → portafolio y dashboard sin servidores de app."
+        line="Push → Actions → Allure/R2 → evidencia pública."
       />
     </SceneShell>
   );

@@ -13,7 +13,6 @@ import { colors } from "../theme";
 
 type ShotPanProps = {
   readonly src: string;
-  /** Prefer a true 9:16 / phone capture when the composition is vertical. */
   readonly mobileSrc?: string;
   readonly startScale?: number;
   readonly endScale?: number;
@@ -24,13 +23,13 @@ type ShotPanProps = {
 export const ShotPan: React.FC<ShotPanProps> = ({
   src,
   mobileSrc,
-  startScale = 1.08,
-  endScale = 1.18,
+  startScale = 1.02,
+  endScale = 1.08,
   startY = 0,
-  endY = -80,
+  endY = -28,
 }) => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
+  const { durationInFrames, fps } = useVideoConfig();
   const layout = useTourLayout();
 
   const progress = interpolate(frame, [0, durationInFrames - 1], [0, 1], {
@@ -42,41 +41,96 @@ export const ShotPan: React.FC<ShotPanProps> = ({
   const scale = startScale + (endScale - startScale) * progress;
   const translateY = startY + (endY - startY) * progress;
   const file = layout.vertical && mobileSrc ? mobileSrc : src;
-  const bottomReserve = layout.vertical ? layout.safeBottom + 8 : layout.shotPadding;
+  const reveal = interpolate(frame, [0, 0.35 * fps], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+
+  if (layout.vertical) {
+    // Preserve capture aspect — never force width+height 100% (that upscales ugly).
+    return (
+      <AbsoluteFill style={{ opacity: reveal }}>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "66%",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              scale,
+              translate: `0 ${translateY}px`,
+            }}
+          >
+            <Img
+              src={staticFile(file)}
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+          </div>
+        </div>
+        <AbsoluteFill
+          style={{
+            backgroundImage: `linear-gradient(
+              180deg,
+              transparent 32%,
+              rgba(6, 8, 13, 0.78) 52%,
+              rgba(6, 8, 13, 0.97) 68%,
+              ${colors.bg} 80%
+            )`,
+          }}
+        />
+      </AbsoluteFill>
+    );
+  }
 
   return (
     <AbsoluteFill
       style={{
-        justifyContent: layout.vertical ? "flex-start" : "center",
+        justifyContent: "center",
         alignItems: "center",
-        paddingTop: layout.vertical ? layout.safeTop : layout.shotPadding,
-        paddingBottom: bottomReserve,
-        paddingLeft: layout.shotPadding,
-        paddingRight: layout.shotPadding + (layout.vertical ? layout.safeRightExtra : 0),
+        padding: layout.shotPadding,
+        opacity: reveal,
       }}
     >
       <div
         style={{
           width: "100%",
-          height: layout.vertical ? "58%" : "100%",
+          height: "100%",
           borderRadius: layout.shotRadius,
           border: `1px solid ${colors.border}`,
           overflow: "hidden",
           backgroundColor: colors.bgAlt,
-          boxShadow: "0 28px 80px rgba(0,0,0,0.45)",
+          boxShadow: "0 28px 80px rgba(0, 0, 0, 0.45)",
         }}
       >
-        <Img
-          src={staticFile(file)}
+        <div
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
-            objectPosition: "top center",
             scale,
             translate: `0 ${translateY}px`,
           }}
-        />
+        >
+          <Img
+            src={staticFile(file)}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+            }}
+          />
+        </div>
       </div>
     </AbsoluteFill>
   );

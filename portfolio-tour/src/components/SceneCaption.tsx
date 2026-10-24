@@ -25,6 +25,22 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
   const { fps } = useVideoConfig();
   const layout = useTourLayout();
 
+  const enter = interpolate(frame, [0.15 * fps, 0.7 * fps], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const rise = interpolate(frame, [0.15 * fps, 0.75 * fps], [36, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const rule = interpolate(frame, [0.35 * fps, 0.9 * fps], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.22, 1, 0.36, 1),
+  });
+
   return (
     <AbsoluteFill
       style={{
@@ -37,58 +53,75 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
       }}
     >
       <Interactive.Div
-        name="Caption card"
+        name="Caption"
         premountFor={fps}
         style={{
           width: "100%",
           maxWidth: layout.vertical ? undefined : 920,
-          padding: layout.vertical ? "24px 26px" : "28px 32px",
-          borderRadius: 16,
-          border: `1px solid ${colors.border}`,
-          backgroundColor: colors.panel,
-          backdropFilter: "blur(10px)",
-          opacity: interpolate(frame, [0, 0.45 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.16, 1, 0.3, 1),
-          }),
-          translate: `0 ${interpolate(frame, [0, 0.5 * fps], [28, 0], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.16, 1, 0.3, 1),
-          })}px`,
+          // Vertical: no card chrome — text on the scrim only
+          ...(layout.vertical
+            ? {
+                padding: 0,
+                border: "none",
+                backgroundColor: "transparent",
+                backdropFilter: "none",
+              }
+            : {
+                padding: "28px 32px",
+                borderRadius: 16,
+                border: `1px solid ${colors.border}`,
+                backgroundColor: colors.panel,
+                backdropFilter: "blur(10px)",
+              }),
+          opacity: enter,
+          translate: `0 ${rise}px`,
         }}
       >
         <div
           style={{
             color: colors.accent,
+            fontFamily: fonts.body,
             fontSize: layout.captionKicker,
             fontWeight: 700,
-            letterSpacing: "0.08em",
+            letterSpacing: "0.12em",
             textTransform: "uppercase",
-            marginBottom: 10,
+            marginBottom: 12,
           }}
         >
           {kicker}
         </div>
         <div
           style={{
-            fontFamily: fonts.display,
+            fontFamily: layout.useTightDisplay
+              ? fonts.displayTight
+              : fonts.display,
             fontSize: layout.captionTitle,
             fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.05,
-            marginBottom: 12,
+            letterSpacing: layout.vertical ? "-0.015em" : "-0.03em",
+            lineHeight: 1.15,
+            marginBottom: 10,
+            maxWidth: layout.vertical ? "16ch" : undefined,
           }}
         >
           {title}
         </div>
         <div
           style={{
+            width: (layout.vertical ? 72 : 56) * rule,
+            height: 2,
+            backgroundColor: colors.accent,
+            marginBottom: 14,
+          }}
+        />
+        <div
+          style={{
             color: colors.muted,
+            fontFamily: fonts.body,
             fontSize: layout.captionLine,
-            lineHeight: 1.35,
-            maxWidth: layout.vertical ? "100%" : 820,
+            fontWeight: 500,
+            lineHeight: 1.4,
+            maxWidth: layout.vertical ? "28ch" : 820,
+            letterSpacing: "0.01em",
           }}
         >
           {line}

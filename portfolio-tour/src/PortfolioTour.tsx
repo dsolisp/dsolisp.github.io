@@ -1,6 +1,7 @@
 import React from "react";
-import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
+import { slide } from "@remotion/transitions/slide";
 import { AbsoluteFill, useVideoConfig } from "remotion";
 import { TitleScene } from "./scenes/TitleScene";
 import { HeroScene } from "./scenes/HeroScene";
@@ -12,10 +13,20 @@ import { AboutScene } from "./scenes/AboutScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { colors } from "./theme";
 
-const fadeTiming = linearTiming({ durationInFrames: 18 });
+const TRANSITION_FRAMES = 20;
 
 export const PortfolioTour: React.FC = () => {
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const vertical = height > width;
+
+  const timing = vertical
+    ? springTiming({
+        config: { damping: 200 },
+        durationInFrames: TRANSITION_FRAMES,
+      })
+    : linearTiming({ durationInFrames: TRANSITION_FRAMES });
+
+  const presentation = vertical ? slide({ direction: "from-bottom" }) : fade();
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>
@@ -27,7 +38,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <TitleScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="Hero"
           durationInFrames={150}
@@ -35,7 +46,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <HeroScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="CI Lab"
           durationInFrames={150}
@@ -43,7 +54,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <CiLabScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="Gavel"
           durationInFrames={150}
@@ -51,7 +62,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <GavelScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="Architecture"
           durationInFrames={135}
@@ -59,7 +70,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <ArchitectureScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="Projects"
           durationInFrames={150}
@@ -67,7 +78,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <ProjectsScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="About"
           durationInFrames={135}
@@ -75,7 +86,7 @@ export const PortfolioTour: React.FC = () => {
         >
           <AboutScene />
         </TransitionSeries.Sequence>
-        <TransitionSeries.Transition presentation={fade()} timing={fadeTiming} />
+        <TransitionSeries.Transition presentation={presentation} timing={timing} />
         <TransitionSeries.Sequence
           name="Outro"
           durationInFrames={120}
@@ -88,6 +99,6 @@ export const PortfolioTour: React.FC = () => {
   );
 };
 
-/** Sum of scene frames minus transition overlaps (7 × 18). */
+/** Sum of scene frames minus transition overlaps (7 × TRANSITION_FRAMES). */
 export const PORTFOLIO_TOUR_DURATION =
-  105 + 150 + 150 + 150 + 135 + 150 + 135 + 120 - 7 * 18;
+  105 + 150 + 150 + 150 + 135 + 150 + 135 + 120 - 7 * TRANSITION_FRAMES;

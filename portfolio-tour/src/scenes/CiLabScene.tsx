@@ -17,7 +17,7 @@ export const CiLabScene: React.FC = () => {
       <SceneCaption
         kicker="02 · CI Lab"
         title="Evidencia en vivo"
-        line="Runs de GitHub Actions y Allure solo cuando el reporte tiene resultados reales."
+        line="Actions en vivo. Allure solo con resultados reales."
       />
     </SceneShell>
   );
