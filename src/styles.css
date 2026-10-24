@@ -202,11 +202,8 @@ a:hover {
 .site-nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  min-height: 3rem;
-  /* Leave room for fixed ES|EN + theme chrome on the right */
-  padding-right: 9.5rem;
+  min-height: 3.25rem;
 }
 
 .site-nav-brand {
@@ -215,6 +212,7 @@ a:hover {
   color: var(--accent);
   letter-spacing: 0.04em;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .site-nav-links {
@@ -224,6 +222,15 @@ a:hover {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+}
+
+.site-nav-links li {
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
 .site-nav-links a {
@@ -237,44 +244,42 @@ a:hover {
   color: var(--accent);
 }
 
-/* Language + theme toggles */
-.chrome-toggles {
-  position: fixed;
-  top: 0.7rem;
-  right: 1rem;
-  z-index: 9999;
+/* Language + theme — live inside the sticky nav, never fixed-over-links */
+.site-nav-chrome {
   display: flex;
+  align-items: center;
   gap: 0.45rem;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .lang-switch {
   display: flex;
+  align-items: stretch;
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
   background: var(--panel);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow);
+  height: 2.1rem;
 }
 
 .lang-toggle,
 .theme-toggle {
-  min-width: 2.4rem;
-  height: 2.35rem;
+  min-width: 2.2rem;
+  height: 2.1rem;
   padding: 0 0.55rem;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--panel);
   color: var(--text);
   cursor: pointer;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
   transition:
     border-color 0.2s var(--ease),
     background 0.2s var(--ease),
@@ -285,9 +290,9 @@ a:hover {
   border: none;
   border-radius: 0;
   box-shadow: none;
-  backdrop-filter: none;
   background: transparent;
-  min-width: 2.2rem;
+  min-width: 2.1rem;
+  height: 100%;
 }
 
 .lang-switch .lang-toggle.is-active {
@@ -974,7 +979,26 @@ a:hover {
 
 .project-header {
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.project-header h3 {
+  margin: 0;
+  flex: 1 1 12rem;
+  min-width: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.project-header .pill {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
 }
 
 .project-header a {
@@ -1018,12 +1042,28 @@ a:hover {
 }
 
 .project-grid-compact {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  align-items: stretch;
 }
 
 .project-card-compact {
   padding: 0.95rem 1.05rem;
-  background: transparent;
+  background: var(--panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.project-card-compact .project-header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-card-compact .project-header h3 {
+  flex: none;
+  width: 100%;
+  font-size: 0.98rem;
 }
 
 .project-card-compact .project-tagline {
@@ -1031,7 +1071,8 @@ a:hover {
 }
 
 .project-card-compact .tag-list {
-  margin-top: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.55rem;
 }
 
 /* Tags */
@@ -1101,14 +1142,18 @@ a:hover {
 
 @media (max-width: 680px) {
   .site-nav-inner {
-    padding-right: 0;
     flex-wrap: wrap;
+    row-gap: 0.45rem;
   }
 
   .site-nav-links {
-    width: 100%;
     order: 3;
-    padding-bottom: 0.35rem;
+    flex: 1 1 100%;
+    padding-bottom: 0.2rem;
+  }
+
+  .site-nav-chrome {
+    margin-left: 0;
   }
 
   .hero {

@@ -1,4 +1,6 @@
 import { useLocale } from '../i18n/LocaleContext.tsx'
+import LangToggle from './LangToggle.tsx'
+import ThemeToggle from './ThemeToggle.tsx'
 
 export default function SiteNav() {
   const { t } = useLocale()
@@ -22,6 +24,10 @@ export default function SiteNav() {
             </li>
           ))}
         </ul>
+        <div className="site-nav-chrome">
+          <LangToggle />
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   )
