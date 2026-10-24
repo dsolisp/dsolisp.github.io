@@ -40,7 +40,7 @@ const en: Messages = {
   ciLab: {
     title: 'Live CI Lab',
     intro:
-      'Workflow status comes from the GitHub Actions API. Allure links appear only when a published report has real results (nonzero test totals) — empty shells are hidden.',
+      'System health evidence from GitHub Actions — Allure links only when a published report has real results (nonzero totals).',
     loading: 'Loading runs…',
     apiError: 'Could not reach the GitHub API (rate limit). Check runs directly on',
     noRuns: 'No recent workflow runs found.',
@@ -76,7 +76,7 @@ const en: Messages = {
   architecture: {
     title: 'CI/CD Pipeline Architecture',
     intro:
-      'How a git push becomes a public, verifiable test report: GitHub Actions runs the stacks in parallel, Allure + summary.json land on Cloudflare R2, and this site (plus the QA Dashboard) present live status — no app servers to maintain.',
+      'How a git push becomes public proof: Actions runs stacks in parallel under quality gates (Gavel + Test Constitution where wired), Allure + summary.json land on R2, and this site plus the QA Dashboard show live status — no app servers.',
     parallelAria: 'Suites running in parallel',
     footnoteBefore: 'See it live: the',
     footnoteMid:
@@ -119,44 +119,44 @@ const en: Messages = {
   projects: {
     title: 'Projects',
     intro:
-      'Flagship frameworks test the same apps (SauceDemo, a local practice app, public REST APIs, SQLite) under shared architecture standards so stacks are directly comparable.',
+      'Flagship frameworks hit the same apps under shared architecture standards — stacks stay directly comparable.',
     also: 'Also in the portfolio',
     sourceOnRequest: 'source on request',
     items: {
       PlaywrightProject: {
         tagline: 'Flagship E2E framework',
         description:
-          'E2E UI, API/schema, unit, BDD (playwright-bdd), visual, accessibility (Axe) and performance testing with OpenTelemetry tracing. Page Object Model with mirrored locators, fixtures for DI, Allure reporting.',
+          'Reference multi-layer stack — UI, API, visual, a11y and perf under shared POM + fixtures.',
       },
       PythonSeleniumProject: {
         tagline: 'Longest-running stack (2024)',
         description:
-          'UI (Selenium + Playwright smoke), API, DB, visual regression, accessibility, Locust load testing and flaky-test history tracking. Hermetic runs against a shared local practice app and SQLite.',
+          'Longest hermetic run: UI, API, DB, visual, a11y and Locust on the shared practice apps.',
       },
       JavaSeleniumProject: {
         tagline: 'Enterprise-style Java stack',
         description:
-          'UI, REST Assured API, DB, visual (Shutterbug), Axe accessibility and Gatling load tests. Maven, JUnit 5, Docker/Selenium Grid-ready, optional Cucumber BDD layer.',
+          'Enterprise Java coverage — UI, REST Assured, Gatling — Docker/Grid-ready on the same apps.',
       },
       CypressProject: {
         tagline: 'Component-era web testing',
         description:
-          'UI, API and unit specs, visual image-diff, accessibility, hermetic SQLite data layer and OpenTelemetry wired into the Cypress config. Includes an optional Lighthouse performance pipeline.',
+          'Component-era web coverage: UI, API, visual, a11y and optional Lighthouse.',
       },
       CSharpSeleniumProject: {
         tagline: '.NET framework library',
         description:
-          'Framework library plus unit, API, web and SpecFlow BDD tests with FluentAssertions and Allure — same applications under test as the Python stack, so results are directly comparable.',
+          'Private .NET library + SpecFlow suite on the same apps under test.',
       },
       'LLM Testing & Agentic Engineering Masterclass': {
         tagline: 'AI-era QA curriculum',
         description:
-          'Zero-to-Hero roadmap for testing LLM applications: DeepEval, Ragas, RAG evaluation, self-healing locators and OpenTelemetry for agents.',
+          'Zero-to-advanced LLM/RAG eval curriculum — DeepEval, Ragas and agentic QA patterns.',
       },
       'API Automation Engineering Masterclass': {
         tagline: 'API SDET curriculum',
         description:
-          'Zero-to-Hero API testing guide: REST Assured, schema validation vs consumer-driven contracts, k6 performance and session-reuse patterns.',
+          'Zero-to-advanced API SDET path: contracts, REST Assured and k6.',
       },
     },
   },
