@@ -202,9 +202,8 @@ a:hover {
 .site-nav-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  min-height: 3rem;
+  min-height: 3.25rem;
 }
 
 .site-nav-brand {
@@ -213,6 +212,7 @@ a:hover {
   color: var(--accent);
   letter-spacing: 0.04em;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .site-nav-links {
@@ -222,6 +222,15 @@ a:hover {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  flex: 1 1 auto;
+  min-width: 0;
+  align-items: center;
+}
+
+.site-nav-links li {
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
 .site-nav-links a {
@@ -235,44 +244,42 @@ a:hover {
   color: var(--accent);
 }
 
-/* Language + theme toggles */
-.chrome-toggles {
-  position: fixed;
-  top: 0.7rem;
-  right: 1rem;
-  z-index: 9999;
+/* Language + theme — live inside the sticky nav, never fixed-over-links */
+.site-nav-chrome {
   display: flex;
+  align-items: center;
   gap: 0.45rem;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .lang-switch {
   display: flex;
+  align-items: stretch;
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
   background: var(--panel);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--shadow);
+  height: 2.1rem;
 }
 
 .lang-toggle,
 .theme-toggle {
-  min-width: 2.4rem;
-  height: 2.35rem;
+  min-width: 2.2rem;
+  height: 2.1rem;
   padding: 0 0.55rem;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--panel);
   color: var(--text);
   cursor: pointer;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
   transition:
     border-color 0.2s var(--ease),
     background 0.2s var(--ease),
@@ -283,9 +290,9 @@ a:hover {
   border: none;
   border-radius: 0;
   box-shadow: none;
-  backdrop-filter: none;
   background: transparent;
-  min-width: 2.2rem;
+  min-width: 2.1rem;
+  height: 100%;
 }
 
 .lang-switch .lang-toggle.is-active {
@@ -303,13 +310,16 @@ a:hover {
   color: var(--accent);
 }
 
-/* Hero — one composition, brand first */
+/* Hero — one composition, brand first.
+   Upper/right field = orbital visual plane (not “missing content”).
+   Optical center sits slightly high so the name leads the first viewport. */
 .hero {
   position: relative;
-  min-height: min(100vh, 860px);
+  /* Shorter than full viewport so the brand leads — no “missing block” void */
+  min-height: min(78svh, 680px);
   display: flex;
-  align-items: flex-end;
-  padding: 7rem 0 4.5rem;
+  align-items: flex-start;
+  padding: 5.25rem 0 3rem;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
 }
@@ -319,37 +329,97 @@ a:hover {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 55% at 70% 40%, rgba(61, 255, 199, 0.1), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 18% 70%, rgba(56, 140, 255, 0.1), transparent 55%),
-    linear-gradient(180deg, transparent 40%, var(--bg) 100%);
+    radial-gradient(ellipse 62% 58% at 78% 38%, rgba(61, 255, 199, 0.18), transparent 62%),
+    radial-gradient(ellipse 48% 42% at 12% 72%, rgba(56, 140, 255, 0.12), transparent 58%),
+    linear-gradient(180deg, transparent 58%, var(--bg) 100%);
 }
 
-.hero-atmosphere::before {
-  content: '';
-  position: absolute;
-  inset: 8% 6% auto auto;
-  width: min(46vw, 420px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(61, 255, 199, 0.18);
-  border-radius: 50%;
-  opacity: 0.7;
-  animation: atmosphere-drift 16s ease-in-out infinite alternate-reverse;
+[data-theme='light'] .hero-atmosphere {
+  background:
+    radial-gradient(ellipse 62% 58% at 78% 38%, rgba(15, 159, 122, 0.22), transparent 62%),
+    radial-gradient(ellipse 48% 42% at 12% 72%, rgba(56, 140, 255, 0.14), transparent 58%),
+    linear-gradient(180deg, transparent 58%, var(--bg) 100%);
 }
 
-.hero-atmosphere::after {
-  content: '';
+.hero-orbits {
   position: absolute;
-  inset: 18% 14% auto auto;
-  width: min(34vw, 300px);
+  /* Occupies the upper-right field — answers “qué va arriba del nombre” */
+  top: -6%;
+  right: max(-10vw, -4rem);
+  width: min(72vw, 640px);
   aspect-ratio: 1;
-  border: 1px dashed rgba(148, 180, 220, 0.22);
-  border-radius: 50%;
+  animation: orbit-spin 52s linear infinite;
+}
+
+.hero-orbit {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.hero-orbit--outer {
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-opacity: 0.7;
+}
+
+.hero-orbit--mid {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 9 12;
+  stroke-opacity: 0.55;
+  animation: orbit-spin 34s linear infinite reverse;
+  transform-origin: 320px 320px;
+}
+
+.hero-orbit--inner {
+  stroke: color-mix(in srgb, var(--accent) 65%, #9ec4ea);
+  stroke-width: 1.75;
+  stroke-opacity: 0.62;
+}
+
+.hero-orbit-dot {
+  fill: var(--accent);
+  fill-opacity: 1;
+}
+
+[data-theme='light'] .hero-orbit--outer {
+  stroke: color-mix(in srgb, var(--accent) 85%, #0a3d30);
+  stroke-opacity: 0.85;
+  stroke-width: 2.75;
+}
+
+[data-theme='light'] .hero-orbit--mid {
+  stroke: color-mix(in srgb, var(--accent) 75%, #10151d);
+  stroke-opacity: 0.7;
+}
+
+[data-theme='light'] .hero-orbit--inner {
+  stroke: color-mix(in srgb, var(--accent) 55%, #10151d);
+  stroke-opacity: 0.55;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-breathe {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.03);
+  }
 }
 
 .hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 46rem;
+  max-width: 44rem;
   animation: rise-in 0.9s var(--ease) both;
 }
 
@@ -420,7 +490,7 @@ a:hover {
   background: var(--accent);
   border-color: transparent;
   color: var(--accent-ink);
-  box-shadow: 0 12px 28px rgba(61, 255, 199, 0.18);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 .btn-primary:hover {
@@ -429,11 +499,20 @@ a:hover {
 }
 
 [data-theme='light'] .btn {
-  background: rgba(16, 21, 29, 0.03);
+  background: #fff;
+  border-color: rgba(16, 21, 29, 0.16);
+  color: var(--text);
+}
+
+[data-theme='light'] .btn-primary {
+  background: var(--accent);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(15, 159, 122, 0.28);
 }
 
 [data-theme='light'] .btn-primary:hover {
-  background: #12b589;
+  background: #0c8667;
   color: #fff;
 }
 
@@ -900,7 +979,26 @@ a:hover {
 
 .project-header {
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.project-header h3 {
+  margin: 0;
+  flex: 1 1 12rem;
+  min-width: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.project-header .pill {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.25;
 }
 
 .project-header a {
@@ -944,12 +1042,28 @@ a:hover {
 }
 
 .project-grid-compact {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  align-items: stretch;
 }
 
 .project-card-compact {
   padding: 0.95rem 1.05rem;
-  background: transparent;
+  background: var(--panel);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.project-card-compact .project-header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.project-card-compact .project-header h3 {
+  flex: none;
+  width: 100%;
+  font-size: 0.98rem;
 }
 
 .project-card-compact .project-tagline {
@@ -957,7 +1071,8 @@ a:hover {
 }
 
 .project-card-compact .tag-list {
-  margin-top: 0.35rem;
+  margin-top: auto;
+  padding-top: 0.55rem;
 }
 
 /* Tags */
@@ -1026,10 +1141,36 @@ a:hover {
 }
 
 @media (max-width: 680px) {
+  .site-nav-inner {
+    flex-wrap: wrap;
+    row-gap: 0.45rem;
+  }
+
+  .site-nav-links {
+    order: 3;
+    flex: 1 1 100%;
+    padding-bottom: 0.2rem;
+  }
+
+  .site-nav-chrome {
+    margin-left: 0;
+  }
+
   .hero {
     min-height: auto;
-    padding: 5.5rem 0 3.2rem;
+    padding: 4.5rem 0 2.75rem;
     align-items: flex-start;
+  }
+
+  .hero-inner {
+    margin-top: 0;
+  }
+
+  .hero-orbits {
+    right: -28vw;
+    width: min(92vw, 380px);
+    top: 28%;
+    opacity: 0.85;
   }
 
   .section {
