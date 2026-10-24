@@ -57,22 +57,10 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
         premountFor={fps}
         style={{
           width: "100%",
-          maxWidth: layout.vertical ? undefined : 920,
-          // Vertical: no card chrome — text on the scrim only
-          ...(layout.vertical
-            ? {
-                padding: 0,
-                border: "none",
-                backgroundColor: "transparent",
-                backdropFilter: "none",
-              }
-            : {
-                padding: "28px 32px",
-                borderRadius: 16,
-                border: `1px solid ${colors.border}`,
-                backgroundColor: colors.panel,
-                backdropFilter: "blur(10px)",
-              }),
+          maxWidth: layout.vertical ? undefined : 780,
+          padding: 0,
+          border: "none",
+          backgroundColor: "transparent",
           opacity: enter,
           translate: `0 ${rise}px`,
         }}
@@ -98,16 +86,16 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
             fontSize: layout.captionTitle,
             fontWeight: 800,
             letterSpacing: layout.vertical ? "-0.015em" : "-0.03em",
-            lineHeight: 1.15,
+            lineHeight: 1.12,
             marginBottom: 10,
-            maxWidth: layout.vertical ? "16ch" : undefined,
+            maxWidth: layout.vertical ? "16ch" : "18ch",
           }}
         >
           {title}
         </div>
         <div
           style={{
-            width: (layout.vertical ? 72 : 56) * rule,
+            width: (layout.vertical ? 72 : 64) * rule,
             height: 2,
             backgroundColor: colors.accent,
             marginBottom: 14,
@@ -120,7 +108,7 @@ export const SceneCaption: React.FC<SceneCaptionProps> = ({
             fontSize: layout.captionLine,
             fontWeight: 500,
             lineHeight: 1.4,
-            maxWidth: layout.vertical ? "28ch" : 820,
+            maxWidth: layout.vertical ? "28ch" : "36ch",
             letterSpacing: "0.01em",
           }}
         >
