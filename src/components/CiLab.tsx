@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { allureR2BaseUrl, ciRepos, profile } from '../config.ts'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 import {
   fetchWorkflowRuns,
   latestRunPerWorkflow,
@@ -87,17 +88,18 @@ function statusInfo(run: WorkflowRun): { cls: string; text: string } {
   }
 }
 
-function freshnessLabel(iso: string): { text: string; stale: boolean } {
-  const days = (Date.now() - new Date(iso).getTime()) / (24 * 60 * 60 * 1000)
-  return {
-    text: `Report · ${relativeTime(iso)}`,
-    stale: days >= 14,
-  }
-}
-
 export default function CiLab() {
+  const { t } = useLocale()
   const [runs, setRuns] = useState<RunsByRepo>({})
   const [allureLinks, setAllureLinks] = useState<AllureByRepo>({})
+
+  function freshnessLabel(iso: string): { text: string; stale: boolean } {
+    const days = (Date.now() - new Date(iso).getTime()) / (24 * 60 * 60 * 1000)
+    return {
+      text: `${t.ciLab.report} · ${relativeTime(iso)}`,
+      stale: days >= 14,
+    }
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -133,11 +135,8 @@ export default function CiLab() {
   return (
     <section className="section" id="ci-lab">
       <div className="container">
-        <h2>Live CI Lab</h2>
-        <p className="section-intro">
-          Workflow status comes from the GitHub Actions API. Allure links appear only when a
-          published report has real results (nonzero test totals) — empty shells are hidden.
-        </p>
+        <h2>{t.ciLab.title}</h2>
+        <p className="section-intro">{t.ciLab.intro}</p>
         <div className="ci-grid">
           {ciRepos.map(({ repo, label, stack }) => {
             const repoRuns = runs[repo]
@@ -153,19 +152,19 @@ export default function CiLab() {
                 {freshness && (
                   <p className={`ci-freshness${freshness.stale ? ' is-stale' : ''}`}>
                     {freshness.text}
-                    {freshness.stale ? ' · stale nightly' : ''}
-                    {allure ? ` · ${allure.total} tests` : ''}
+                    {freshness.stale ? ` · ${t.ciLab.staleNightly}` : ''}
+                    {allure ? ` · ${allure.total} ${t.ciLab.tests}` : ''}
                   </p>
                 )}
-                {repoRuns === undefined && <p className="ci-note">Loading runs…</p>}
+                {repoRuns === undefined && <p className="ci-note">{t.ciLab.loading}</p>}
                 {repoRuns === 'error' && (
                   <p className="ci-note">
-                    Could not reach the GitHub API (rate limit). Check runs directly on{' '}
+                    {t.ciLab.apiError}{' '}
                     <a href={`${profile.github}/${repo}/actions`}>GitHub</a>.
                   </p>
                 )}
                 {Array.isArray(repoRuns) && repoRuns.length === 0 && (
-                  <p className="ci-note">No recent workflow runs found.</p>
+                  <p className="ci-note">{t.ciLab.noRuns}</p>
                 )}
                 {Array.isArray(repoRuns) && repoRuns.length > 0 && (
                   <ul className="run-list">
@@ -187,11 +186,11 @@ export default function CiLab() {
                 )}
                 <footer className="ci-card-footer">
                   <a className="ci-all-link" href={`${profile.github}/${repo}/actions`} target="_blank" rel="noreferrer">
-                    All runs →
+                    {t.ciLab.allRuns}
                   </a>
                   {allure && (
                     <a className="allure-link" href={allure.url} target="_blank" rel="noreferrer">
-                      Allure report →
+                      {t.ciLab.allure}
                     </a>
                   )}
                 </footer>

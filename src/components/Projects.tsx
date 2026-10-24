@@ -1,10 +1,23 @@
 import { projects, type Project } from '../config.ts'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 
 function isFramework(p: Project): boolean {
   return p.status === 'live' && Boolean(p.repoUrl?.includes('Project'))
 }
 
-function ProjectCard({ p, compact = false }: { p: Project; compact?: boolean }) {
+function ProjectCard({
+  p,
+  compact = false,
+  tagline,
+  description,
+  sourceOnRequest,
+}: {
+  p: Project
+  compact?: boolean
+  tagline: string
+  description: string
+  sourceOnRequest: string
+}) {
   return (
     <article className={`project-card${compact ? ' project-card-compact' : ''}`}>
       <header className="project-header">
@@ -18,14 +31,14 @@ function ProjectCard({ p, compact = false }: { p: Project; compact?: boolean }) 
           )}
         </h3>
         {p.status === 'private' && (
-          <span className="pill pill-neutral">source on request</span>
+          <span className="pill pill-neutral">{sourceOnRequest}</span>
         )}
       </header>
-      <p className="project-tagline">{p.tagline}</p>
-      {!compact && <p>{p.description}</p>}
+      <p className="project-tagline">{tagline}</p>
+      {!compact && <p>{description}</p>}
       <ul className="tag-list">
-        {p.tags.map((t) => (
-          <li key={t}>{t}</li>
+        {p.tags.map((tag) => (
+          <li key={tag}>{tag}</li>
         ))}
       </ul>
     </article>
@@ -33,29 +46,46 @@ function ProjectCard({ p, compact = false }: { p: Project; compact?: boolean }) 
 }
 
 export default function Projects() {
+  const { t } = useLocale()
   const frameworks = projects.filter(isFramework)
   const also = projects.filter((p) => !isFramework(p))
 
   return (
     <section className="section" id="projects">
       <div className="container">
-        <h2>Projects</h2>
-        <p className="section-intro">
-          Flagship frameworks test the same apps (SauceDemo, a local practice app, public REST
-          APIs, SQLite) under shared architecture standards so stacks are directly comparable.
-        </p>
+        <h2>{t.projects.title}</h2>
+        <p className="section-intro">{t.projects.intro}</p>
         <div className="project-grid">
-          {frameworks.map((p) => (
-            <ProjectCard key={p.name} p={p} />
-          ))}
+          {frameworks.map((p) => {
+            const copy = t.projects.items[p.name]
+            return (
+              <ProjectCard
+                key={p.name}
+                p={p}
+                tagline={copy?.tagline ?? p.name}
+                description={copy?.description ?? ''}
+                sourceOnRequest={t.projects.sourceOnRequest}
+              />
+            )
+          })}
         </div>
         {also.length > 0 && (
           <>
-            <h3 className="projects-subhead">Also in the portfolio</h3>
+            <h3 className="projects-subhead">{t.projects.also}</h3>
             <div className="project-grid project-grid-compact">
-              {also.map((p) => (
-                <ProjectCard key={p.name} p={p} compact />
-              ))}
+              {also.map((p) => {
+                const copy = t.projects.items[p.name]
+                return (
+                  <ProjectCard
+                    key={p.name}
+                    p={p}
+                    compact
+                    tagline={copy?.tagline ?? p.name}
+                    description={copy?.description ?? ''}
+                    sourceOnRequest={t.projects.sourceOnRequest}
+                  />
+                )
+              })}
             </div>
           </>
         )}

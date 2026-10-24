@@ -1,35 +1,31 @@
 import { useEffect, useState } from 'react'
 import { profile } from '../config.ts'
+import { useLocale } from '../i18n/LocaleContext.tsx'
 import { fetchUserRepos } from '../lib/github.ts'
 
-interface Stat {
-  value: string
-  label: string
-}
-
-const staticStats: Stat[] = [
-  { value: '4+', label: 'Public stacks (TS, Python, Java, JS)' },
-  { value: '7', label: 'Frameworks & curricula in the portfolio' },
-  { value: 'UI · API · a11y · visual · perf', label: 'Test types covered' },
-]
-
 export default function Highlights() {
-  const [repoStat, setRepoStat] = useState<Stat>({ value: '—', label: 'Public repos on GitHub' })
+  const { t } = useLocale()
+  const [repoCount, setRepoCount] = useState('—')
 
   useEffect(() => {
     fetchUserRepos(profile.githubUser)
-      .then((repos) =>
-        setRepoStat({ value: String(repos.length), label: 'Public repos on GitHub' }),
-      )
+      .then((repos) => setRepoCount(String(repos.length)))
       .catch(() => {
-        // leave placeholder if the API is unavailable
+        // leave placeholder
       })
   }, [])
 
+  const stats = [
+    { value: repoCount, label: t.highlights.publicRepos },
+    { value: '4+', label: t.highlights.stacks },
+    { value: '7', label: t.highlights.frameworks },
+    { value: 'UI · API · a11y · visual · perf', label: t.highlights.testTypes },
+  ]
+
   return (
-    <section className="section highlights" aria-label="Highlights">
+    <section className="section highlights" aria-label={t.highlights.aria}>
       <div className="container stats-grid">
-        {[repoStat, ...staticStats].map((s) => (
+        {stats.map((s) => (
           <div className="stat-card" key={s.label}>
             <span className="stat-value">{s.value}</span>
             <span className="stat-label">{s.label}</span>
