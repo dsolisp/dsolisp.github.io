@@ -17,13 +17,23 @@ export default function SiteNav() {
         <a className="site-nav-brand" href="/">
           DS
         </a>
-        <ul className="site-nav-links">
+        <ul className="site-nav-links site-nav-links-desktop">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href}>{l.label}</a>
             </li>
           ))}
         </ul>
+        <details className="site-nav-menu">
+          <summary className="site-nav-menu-toggle">{t.nav.menu}</summary>
+          <ul className="site-nav-links site-nav-links-mobile">
+            {links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </details>
         <div className="site-nav-chrome">
           <LangToggle />
           <ThemeToggle />
