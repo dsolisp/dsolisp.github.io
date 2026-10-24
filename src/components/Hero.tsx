@@ -6,7 +6,15 @@ export default function Hero() {
   const { t } = useLocale()
   return (
     <header className="hero">
-      <div className="hero-atmosphere" aria-hidden="true" />
+      <div className="hero-atmosphere" aria-hidden="true">
+        <svg className="hero-orbits" viewBox="0 0 640 640" fill="none">
+          <circle className="hero-orbit hero-orbit--outer" cx="320" cy="320" r="300" />
+          <circle className="hero-orbit hero-orbit--mid" cx="320" cy="320" r="230" />
+          <circle className="hero-orbit hero-orbit--inner" cx="320" cy="320" r="160" />
+          <circle className="hero-orbit-dot" cx="320" cy="20" r="5" />
+          <circle className="hero-orbit-dot" cx="550" cy="320" r="4" />
+        </svg>
+      </div>
       <HeroVisual />
       <div className="container hero-inner">
         <p className="hero-meta">
