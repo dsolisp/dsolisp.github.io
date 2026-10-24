@@ -53,8 +53,9 @@ const stages: Stage[] = [
     title: 'Presentation',
     description:
       'This site queries the GitHub REST API in the browser for the latest workflow runs per ' +
-      'repo (status, duration, timing) and deep-links each successful run to its Allure report ' +
-      'on R2 — no backend, no polling service: static React on GitHub Pages over live APIs.',
+      'repo (status, duration, timing) and deep-links Allure reports on R2 only when published ' +
+      'metrics show real results (nonzero totals) — no backend, no polling service: static React ' +
+      'on GitHub Pages over live APIs.',
     tech: ['GitHub REST API', 'React + Vite', 'GitHub Pages'],
   },
 ]

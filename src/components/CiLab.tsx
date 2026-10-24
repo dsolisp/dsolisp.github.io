@@ -15,7 +15,14 @@ import {
 } from '../lib/summaries.ts'
 
 type RunsByRepo = Record<string, WorkflowRun[] | 'error'>
-type AllureByRepo = Record<string, string | undefined>
+
+interface AllureLink {
+  url: string
+  reportedAt: string
+  total: number
+}
+
+type AllureByRepo = Record<string, AllureLink | undefined>
 
 function buildAllureUrl(
   repo: string,
@@ -32,26 +39,37 @@ function buildAllureUrl(
  * Fall back to the latest nonzero summary row for that repo (still a real report).
  * Never link empty Allure shells (total === 0).
  */
-function resolveAllureUrl(
+function resolveAllureLink(
   repo: string,
   workflowName: string | undefined,
   suite: string | undefined,
   runs: WorkflowRun[],
   summaries: RepoSummary[],
-): string | undefined {
+): AllureLink | undefined {
   if (!allureR2BaseUrl || !workflowName) return undefined
 
   const completed = runs.filter(
     (r) => r.name === workflowName && r.status === 'completed',
   )
   for (const run of completed) {
-    if (summaryForRun(summaries, repo, run.id, suite)) {
-      return buildAllureUrl(repo, run.id, suite)
+    const row = summaryForRun(summaries, repo, run.id, suite)
+    if (row) {
+      return {
+        url: buildAllureUrl(repo, run.id, suite),
+        reportedAt: row.timestamp,
+        total: row.total,
+      }
     }
   }
 
   const fallback = latestNonzeroSummary(summaries, repo, suite)
-  if (fallback) return buildAllureUrl(repo, fallback.run_id, suite)
+  if (fallback) {
+    return {
+      url: buildAllureUrl(repo, fallback.run_id, suite),
+      reportedAt: fallback.timestamp,
+      total: fallback.total,
+    }
+  }
   return undefined
 }
 
@@ -66,6 +84,14 @@ function statusInfo(run: WorkflowRun): { cls: string; text: string } {
       return { cls: 'pill-neutral', text: 'cancelled' }
     default:
       return { cls: 'pill-neutral', text: run.conclusion ?? 'unknown' }
+  }
+}
+
+function freshnessLabel(iso: string): { text: string; stale: boolean } {
+  const days = (Date.now() - new Date(iso).getTime()) / (24 * 60 * 60 * 1000)
+  return {
+    text: `Report · ${relativeTime(iso)}`,
+    stale: days >= 14,
   }
 }
 
@@ -84,17 +110,17 @@ export default function CiLab() {
             .then((all) => {
               if (cancelled) return
               setRuns((prev) => ({ ...prev, [repo]: latestRunPerWorkflow(all).slice(0, 3) }))
-              const url = resolveAllureUrl(repo, allureWorkflow, allureSuite, all, summaries)
-              if (url) {
-                setAllureLinks((prev) => ({ ...prev, [repo]: url }))
+              const link = resolveAllureLink(repo, allureWorkflow, allureSuite, all, summaries)
+              if (link) {
+                setAllureLinks((prev) => ({ ...prev, [repo]: link }))
               }
             })
             .catch(() => {
               if (cancelled) return
               setRuns((prev) => ({ ...prev, [repo]: 'error' }))
               // Still try summary-only Allure when GitHub API is rate-limited
-              const url = resolveAllureUrl(repo, allureWorkflow, allureSuite, [], summaries)
-              if (url) setAllureLinks((prev) => ({ ...prev, [repo]: url }))
+              const link = resolveAllureLink(repo, allureWorkflow, allureSuite, [], summaries)
+              if (link) setAllureLinks((prev) => ({ ...prev, [repo]: link }))
             })
         }
       })
@@ -115,7 +141,8 @@ export default function CiLab() {
         <div className="ci-grid">
           {ciRepos.map(({ repo, label, stack }) => {
             const repoRuns = runs[repo]
-            const allureUrl = allureLinks[repo]
+            const allure = allureLinks[repo]
+            const freshness = allure ? freshnessLabel(allure.reportedAt) : null
 
             return (
               <article className="ci-card" key={repo}>
@@ -123,6 +150,13 @@ export default function CiLab() {
                   <h3>{label}</h3>
                   <span className="ci-stack">{stack}</span>
                 </header>
+                {freshness && (
+                  <p className={`ci-freshness${freshness.stale ? ' is-stale' : ''}`}>
+                    {freshness.text}
+                    {freshness.stale ? ' · stale nightly' : ''}
+                    {allure ? ` · ${allure.total} tests` : ''}
+                  </p>
+                )}
                 {repoRuns === undefined && <p className="ci-note">Loading runs…</p>}
                 {repoRuns === 'error' && (
                   <p className="ci-note">
@@ -155,8 +189,8 @@ export default function CiLab() {
                   <a className="ci-all-link" href={`${profile.github}/${repo}/actions`} target="_blank" rel="noreferrer">
                     All runs →
                   </a>
-                  {allureUrl && (
-                    <a className="allure-link" href={allureUrl} target="_blank" rel="noreferrer">
+                  {allure && (
+                    <a className="allure-link" href={allure.url} target="_blank" rel="noreferrer">
                       Allure report →
                     </a>
                   )}
