@@ -1,9 +1,29 @@
 import React from "react";
-import { SceneShell } from "../components/SceneShell";
+import { useVideoConfig } from "remotion";
+import { CliPanel } from "../components/CliPanel";
+import { OrbitBackdrop } from "../components/OrbitBackdrop";
 import { SceneCaption } from "../components/SceneCaption";
+import { SceneShell } from "../components/SceneShell";
 import { ShotPan } from "../components/ShotPan";
 
 export const HeroScene: React.FC = () => {
+  const { width, height } = useVideoConfig();
+  const vertical = height > width;
+
+  if (vertical) {
+    return (
+      <SceneShell>
+        <OrbitBackdrop opacity={0.65} />
+        <CliPanel />
+        <SceneCaption
+          kicker="01 · Hero"
+          title="Marca primero"
+          line="Orbits + CLI de Gavel: una composición, sin tapar el nombre."
+        />
+      </SceneShell>
+    );
+  }
+
   return (
     <SceneShell>
       <ShotPan
@@ -17,7 +37,7 @@ export const HeroScene: React.FC = () => {
       <SceneCaption
         kicker="01 · Hero"
         title="Marca primero"
-        line="Orbits en movimiento + plano CLI de Gavel — una composición, sin tapar el nombre."
+        line="Orbits + CLI de Gavel: una composición, sin tapar el nombre."
       />
     </SceneShell>
   );

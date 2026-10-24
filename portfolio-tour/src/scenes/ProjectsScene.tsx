@@ -17,7 +17,7 @@ export const ProjectsScene: React.FC = () => {
       <SceneCaption
         kicker="05 · Proyectos"
         title="Multi-stack comparable"
-        line="Playwright, Cypress, Java y Python bajo los mismos estándares de arquitectura."
+        line="Playwright, Cypress, Java y Python — misma constitución."
       />
     </SceneShell>
   );

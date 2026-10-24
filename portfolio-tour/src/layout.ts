@@ -1,8 +1,8 @@
 import { useVideoConfig } from "remotion";
 
 /**
- * Shared responsive layout for landscape (YouTube) vs vertical (TikTok / IG Reels).
- * Vertical keeps copy inside platform safe areas (top status + bottom caption/UI chrome).
+ * Landscape (YouTube) vs vertical (TikTok / IG Reels).
+ * Vertical: full-bleed shot + bottom scrim copy; keep clear of platform chrome.
  */
 export function useTourLayout() {
   const { width, height } = useVideoConfig();
@@ -11,25 +11,23 @@ export function useTourLayout() {
   if (vertical) {
     return {
       vertical: true as const,
-      /** TikTok/IG: clear status / username */
-      safeTop: 160,
-      /** TikTok/IG: clear caption bar + home indicator */
-      safeBottom: 300,
-      /** Leave room for right-side action buttons */
-      safeX: 48,
-      safeRightExtra: 36,
-      shotPadding: 28,
-      shotRadius: 22,
-      captionKicker: 20,
-      captionTitle: 48,
-      captionLine: 26,
-      titleMeta: 22,
-      titleName: 84,
-      titleRole: 36,
-      titlePitch: 28,
-      outroUrl: 56,
-      outroLine: 26,
-      framePadX: 48,
+      safeTop: 140,
+      safeBottom: 280,
+      safeX: 40,
+      safeRightExtra: 28,
+      shotPadding: 0,
+      shotRadius: 0,
+      captionKicker: 17,
+      captionTitle: 38,
+      captionLine: 23,
+      titleMeta: 18,
+      titleName: 56,
+      titleRole: 28,
+      titlePitch: 24,
+      outroUrl: 40,
+      outroLine: 22,
+      framePadX: 44,
+      useTightDisplay: true,
     };
   }
 
@@ -51,5 +49,6 @@ export function useTourLayout() {
     outroUrl: 84,
     outroLine: 32,
     framePadX: 120,
+    useTightDisplay: false,
   };
 }

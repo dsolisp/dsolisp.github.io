@@ -22,15 +22,23 @@ npm run dev
 - Landscape: `http://localhost:3000/PortfolioTour`
 - Vertical: `http://localhost:3000/PortfolioTourMobile`
 
-## Render
+## Render (files on your machine)
+
+From a local clone of this repo:
 
 ```bash
-# Landscape
+cd portfolio-tour
+npm i
+
+# Landscape (YouTube / LinkedIn)
 npx remotion render PortfolioTour out/portfolio-tour.mp4
 
-# TikTok / Instagram Reels
+# TikTok / Instagram Reels — 1080×1920
 npx remotion render PortfolioTourMobile out/portfolio-tour-mobile.mp4
 ```
+
+Outputs land in `portfolio-tour/out/` on **your disk** (that folder is gitignored — not on GitHub).
+Studio preview: `npm run dev` → `/PortfolioTourMobile`.
 
 ## Scenes
 

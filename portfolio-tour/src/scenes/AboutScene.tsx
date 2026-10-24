@@ -17,7 +17,7 @@ export const AboutScene: React.FC = () => {
       <SceneCaption
         kicker="06 · Acerca de"
         title="Architect, remote-ready"
-        line="Diseño bases multi-stack y superviso calidad cuando escriben tests personas y agentes."
+        line="Bases multi-stack. Calidad cuando escriben tests personas y agentes."
       />
     </SceneShell>
   );

@@ -17,7 +17,7 @@ export const GavelScene: React.FC = () => {
       <SceneCaption
         kicker="03 · Gavel"
         title="Test Constitution"
-        line="Quality gates open-source en CI — la arquitectura de calidad se exige, no solo se describe."
+        line="Quality gates open-source: la constitución se exige en CI."
       />
     </SceneShell>
   );
