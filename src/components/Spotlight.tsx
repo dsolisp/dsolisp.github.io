@@ -31,7 +31,10 @@ export default function Spotlight() {
           </div>
 
           <p className="spotlight-links">
-            <a className="btn btn-primary" href={g.repoUrl} target="_blank" rel="noreferrer">
+            <a className="btn btn-primary" href="/gavel/">
+              {gavel.caseCta}
+            </a>
+            <a className="btn" href={g.repoUrl} target="_blank" rel="noreferrer">
               {gavel.repository}
             </a>
             <a className="btn" href={g.npmUrl} target="_blank" rel="noreferrer">

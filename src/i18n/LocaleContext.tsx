@@ -26,9 +26,15 @@ function readInitialLocale(): Locale {
 
 function applyDocumentLocale(locale: Locale, messages: Messages) {
   document.documentElement.lang = locale
-  document.title = messages.metaTitle
+  const onGavel = /\/gavel\/?$/.test(window.location.pathname)
+  document.title = onGavel ? messages.gavelCase.documentTitle : messages.metaTitle
   const meta = document.querySelector('meta[name="description"]')
-  if (meta) meta.setAttribute('content', messages.metaDescription)
+  if (meta) {
+    meta.setAttribute(
+      'content',
+      onGavel ? messages.gavelCase.documentDescription : messages.metaDescription,
+    )
+  }
 }
 
 interface LocaleContextValue {

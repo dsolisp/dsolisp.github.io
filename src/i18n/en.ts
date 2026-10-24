@@ -29,6 +29,7 @@ const en: Messages = {
       'I design maintainable multi-stack QA Automation systems and quality gates for AI-era teams — so test code stays scalable when humans and agents both write it. Public proof: live CI, Allure evidence, and Gavel enforcing a Test Constitution across repos.',
     ctaCi: 'Live CI Lab',
     ctaGavel: 'Gavel on npm',
+    ctaGavelCase: 'Gavel case study',
   },
   highlights: {
     aria: 'Highlights',
@@ -68,10 +69,39 @@ const en: Messages = {
       'Decision: fix the automation foundations first (layered page objects, a11y-first locators, fixtures/DI, no sleeps) so the estate stays maintainable and scalable — then keep Gavel as the continuous judge so the same classes of test-code debt do not return.',
     repository: 'Repository',
     npmCta: '@dsolisp/gavel on npm',
+    caseCta: 'Read the case study →',
     bailiffStatus: 'In design',
     bailiffSummary:
       'Planned sibling repo that runs the full QA workflow around the test code: manual and exploratory testing, writing test cases, troubleshooting in a live browser context, CI orchestration, bug reports, tickets, environments and credentials. The boundary rule: everything inside the test codebase belongs to Gavel; everything outside it belongs to Bailiff. Gavel judges the test code; Bailiff runs the courtroom around it.',
     bailiffDoc: 'Architecture doc →',
+  },
+  gavelCase: {
+    documentTitle: 'Gavel — Test Constitution case study | Daniel Solis',
+    documentDescription:
+      'Case study: Gavel enforces a Test Constitution and CI quality gates for AI-era QA automation. Daniel Solis, QA Automation Architect.',
+    eyebrow: 'Case study · open source',
+    title: 'Gavel',
+    lede: 'Enforcing a Test Constitution across multi-repo QA estates — so automation stays maintainable when humans and agents both write tests.',
+    ctaAria: 'Gavel links',
+    backHome: '← Portfolio home',
+    problemTitle: 'The problem',
+    problem:
+      'AI coding agents and fast-moving teams ship test code that looks green and still accrues the same debt: brittle asserts, hardcoded environments, sleeps, selector leaks, and frameworks that juniors cannot extend. Documentation alone does not hold the line.',
+    approachTitle: 'The approach',
+    approach:
+      'Gavel is a framework-adaptive QA discipline engine. It audits test code against a Test Constitution, reviews diffs, flags dead page-object paths, parses CI reports, and can gate pipelines — so quality architecture is enforced, not just described.',
+    constitution: [
+      'Layered page objects — no selectors in specs',
+      'Accessibility-first locators',
+      'No static sleeps as a habit',
+      'Dependency injection via fixtures',
+      'Factories for test data',
+    ],
+    engagementTitle: 'Engagement snapshot',
+    metricsAria: 'Gavel engagement metrics',
+    proofTitle: 'Public proof',
+    proof:
+      'Install from npm, read the architecture, and see live CI + Allure evidence on the portfolio. Gavel judges the test codebase; Bailiff (in design) will run the courtroom around it.',
   },
   architecture: {
     title: 'CI/CD Pipeline Architecture',

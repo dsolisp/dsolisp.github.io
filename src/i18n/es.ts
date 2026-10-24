@@ -29,6 +29,7 @@ const es: Messages = {
       'Diseño sistemas de QA Automation multi-stack mantenibles y quality gates para equipos de la era de la IA, de modo que el código de pruebas escale tanto si lo escriben personas como agentes. Evidencia en CI en vivo, reportes Allure y Gavel aplicando una Test Constitution entre repositorios.',
     ctaCi: 'CI Lab en vivo',
     ctaGavel: 'Gavel en npm',
+    ctaGavelCase: 'Caso Gavel',
   },
   highlights: {
     aria: 'Destacados',
@@ -68,10 +69,39 @@ const es: Messages = {
       'Decisión: primero fortalecer las bases de la automatización (page objects en capas, locators a11y-first, fixtures/DI, sin sleeps) para que el conjunto sea mantenible y pueda crecer; después dejar a Gavel como juez continuo, para que no vuelvan las mismas clases de deuda en el código de pruebas.',
     repository: 'Repositorio',
     npmCta: '@dsolisp/gavel en npm',
+    caseCta: 'Leer el caso →',
     bailiffStatus: 'En diseño',
     bailiffSummary:
       'Repositorio hermano planeado para el flujo QA alrededor del código de pruebas: exploración manual, escritura de casos, troubleshooting en el browser, orquestación de CI, bugs, tickets, ambientes y credenciales. Frontera clara: lo que vive dentro del codebase de tests es de Gavel; lo demás es de Bailiff. Gavel juzga el código de pruebas; Bailiff opera el entorno donde se ejecuta.',
     bailiffDoc: 'Documento de arquitectura →',
+  },
+  gavelCase: {
+    documentTitle: 'Gavel — Caso Test Constitution | Daniel Solis',
+    documentDescription:
+      'Caso: Gavel aplica una Test Constitution y quality gates en CI para automatización QA en la era de la IA. Daniel Solis, QA Automation Architect.',
+    eyebrow: 'Caso · open source',
+    title: 'Gavel',
+    lede: 'Aplicar una Test Constitution en estates de QA multi-repo — para que la automatización siga siendo mantenible cuando personas y agentes escriben tests.',
+    ctaAria: 'Enlaces de Gavel',
+    backHome: '← Inicio del portafolio',
+    problemTitle: 'El problema',
+    problem:
+      'Los agentes de código y los equipos rápidos publican tests que pasan en verde y aún así acumulan la misma deuda: asserts frágiles, entornos hardcodeados, sleeps, fugas de selectores y frameworks que un junior no puede extender. La documentación sola no sostiene la línea.',
+    approachTitle: 'El enfoque',
+    approach:
+      'Gavel es un motor de disciplina QA adaptable al framework. Audita el código de pruebas contra una Test Constitution, revisa diffs, detecta page objects muertos, interpreta reportes de CI y puede actuar como gate — para que la arquitectura de calidad se exija, no solo se describa.',
+    constitution: [
+      'Page objects en capas — sin selectores en specs',
+      'Locators accessibility-first',
+      'Sin sleeps estáticos como hábito',
+      'Inyección de dependencias con fixtures',
+      'Factories para datos de prueba',
+    ],
+    engagementTitle: 'Snapshot del engagement',
+    metricsAria: 'Métricas del engagement Gavel',
+    proofTitle: 'Evidencia pública',
+    proof:
+      'Instalalo desde npm, leé la arquitectura y mirá CI en vivo + Allure en el portafolio. Gavel juzga el codebase de tests; Bailiff (en diseño) operará el entorno alrededor.',
   },
   architecture: {
     title: 'Arquitectura del pipeline CI/CD',
