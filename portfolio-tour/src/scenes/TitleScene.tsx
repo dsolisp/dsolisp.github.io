@@ -8,18 +8,23 @@ import {
   useVideoConfig,
 } from "remotion";
 import { SceneShell } from "../components/SceneShell";
+import { useTourLayout } from "../layout";
 import { colors, fonts } from "../theme";
 
 export const TitleScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const layout = useTourLayout();
 
   return (
     <SceneShell>
       <AbsoluteFill
         style={{
           justifyContent: "center",
-          padding: "0 120px",
+          paddingTop: layout.safeTop,
+          paddingBottom: layout.safeBottom,
+          paddingLeft: layout.framePadX,
+          paddingRight: layout.framePadX + layout.safeRightExtra,
         }}
       >
         <Interactive.Div
@@ -41,7 +46,7 @@ export const TitleScene: React.FC = () => {
           <div
             style={{
               color: colors.muted,
-              fontSize: 28,
+              fontSize: layout.titleMeta,
               fontWeight: 700,
               letterSpacing: "0.1em",
               textTransform: "uppercase",
@@ -53,7 +58,7 @@ export const TitleScene: React.FC = () => {
           <div
             style={{
               fontFamily: fonts.display,
-              fontSize: 120,
+              fontSize: layout.titleName,
               fontWeight: 800,
               letterSpacing: "-0.04em",
               lineHeight: 0.92,
@@ -66,7 +71,7 @@ export const TitleScene: React.FC = () => {
             style={{
               color: colors.accent,
               fontFamily: fonts.display,
-              fontSize: 48,
+              fontSize: layout.titleRole,
               fontWeight: 700,
               marginBottom: 28,
             }}
@@ -76,8 +81,8 @@ export const TitleScene: React.FC = () => {
           <div
             style={{
               color: colors.muted,
-              fontSize: 32,
-              maxWidth: 980,
+              fontSize: layout.titlePitch,
+              maxWidth: layout.vertical ? "100%" : 980,
               lineHeight: 1.4,
             }}
           >

@@ -8,18 +8,23 @@ import {
   useVideoConfig,
 } from "remotion";
 import { SceneShell } from "../components/SceneShell";
+import { useTourLayout } from "../layout";
 import { colors, fonts } from "../theme";
 
 export const OutroScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const layout = useTourLayout();
 
   return (
     <SceneShell>
       <AbsoluteFill
         style={{
           justifyContent: "center",
-          padding: "0 120px",
+          paddingTop: layout.safeTop,
+          paddingBottom: layout.safeBottom,
+          paddingLeft: layout.framePadX,
+          paddingRight: layout.framePadX + layout.safeRightExtra,
         }}
       >
         <Interactive.Div
@@ -41,7 +46,7 @@ export const OutroScene: React.FC = () => {
           <div
             style={{
               color: colors.accent,
-              fontSize: 26,
+              fontSize: layout.captionKicker + 4,
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
@@ -53,11 +58,12 @@ export const OutroScene: React.FC = () => {
           <div
             style={{
               fontFamily: fonts.display,
-              fontSize: 84,
+              fontSize: layout.outroUrl,
               fontWeight: 800,
               letterSpacing: "-0.03em",
-              lineHeight: 1,
+              lineHeight: 1.05,
               marginBottom: 28,
+              wordBreak: "break-word",
             }}
           >
             dsolisp.github.io
@@ -65,9 +71,9 @@ export const OutroScene: React.FC = () => {
           <div
             style={{
               color: colors.muted,
-              fontSize: 32,
+              fontSize: layout.outroLine,
               lineHeight: 1.45,
-              maxWidth: 900,
+              maxWidth: layout.vertical ? "100%" : 900,
             }}
           >
             CI Lab · Caso Gavel · Arquitectura · Proyectos

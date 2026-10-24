@@ -8,6 +8,7 @@ export const CiLabScene: React.FC = () => {
     <SceneShell>
       <ShotPan
         src="shots/cilab.png"
+        mobileSrc="shots/cilab-mobile.png"
         startScale={1.06}
         endScale={1.16}
         startY={0}
