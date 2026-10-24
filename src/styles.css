@@ -512,6 +512,18 @@ a:hover {
   font-size: 0.85rem;
 }
 
+.ci-freshness {
+  margin: -0.35rem 0 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+
+.ci-freshness.is-stale {
+  color: var(--running, #f0a531);
+}
+
 .run-list {
   list-style: none;
   margin: 0 0 0.75rem;
@@ -819,6 +831,32 @@ a:hover {
 
 .project-status {
   margin: 0.65rem 0 0;
+}
+
+.projects-subhead {
+  margin: 2rem 0 0.85rem;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-muted);
+}
+
+.project-grid-compact {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+.project-card-compact {
+  padding: 0.95rem 1.05rem;
+  background: transparent;
+}
+
+.project-card-compact .project-tagline {
+  margin-bottom: 0.35rem;
+}
+
+.project-card-compact .tag-list {
+  margin-top: 0.35rem;
 }
 
 /* Tags */
