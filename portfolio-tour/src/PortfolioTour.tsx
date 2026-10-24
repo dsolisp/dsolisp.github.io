@@ -1,6 +1,5 @@
 import React from "react";
-import { TransitionSeries, linearTiming, springTiming } from "@remotion/transitions";
-import { fade } from "@remotion/transitions/fade";
+import { TransitionSeries, springTiming } from "@remotion/transitions";
 import { slide } from "@remotion/transitions/slide";
 import { AbsoluteFill, useVideoConfig } from "remotion";
 import { TitleScene } from "./scenes/TitleScene";
@@ -19,14 +18,14 @@ export const PortfolioTour: React.FC = () => {
   const { fps, width, height } = useVideoConfig();
   const vertical = height > width;
 
-  const timing = vertical
-    ? springTiming({
-        config: { damping: 200 },
-        durationInFrames: TRANSITION_FRAMES,
-      })
-    : linearTiming({ durationInFrames: TRANSITION_FRAMES });
+  const timing = springTiming({
+    config: { damping: 200 },
+    durationInFrames: TRANSITION_FRAMES,
+  });
 
-  const presentation = vertical ? slide({ direction: "from-bottom" }) : fade();
+  const presentation = slide({
+    direction: vertical ? "from-bottom" : "from-right",
+  });
 
   return (
     <AbsoluteFill style={{ backgroundColor: colors.bg }}>

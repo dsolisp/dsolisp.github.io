@@ -2,7 +2,7 @@ import { useVideoConfig } from "remotion";
 
 /**
  * Landscape (YouTube) vs vertical (TikTok / IG Reels).
- * Vertical: full-bleed shot + bottom scrim copy; keep clear of platform chrome.
+ * Both: full-bleed media + scrim copy (no stacked cards).
  */
 export function useTourLayout() {
   const { width, height } = useVideoConfig();
@@ -28,27 +28,35 @@ export function useTourLayout() {
       outroLine: 22,
       framePadX: 44,
       useTightDisplay: true,
+      cliMaxWidth: undefined as number | undefined,
+      cliPadTop: 160,
+      cliPadX: 36,
+      cliFontSize: 22,
     };
   }
 
   return {
     vertical: false as const,
-    safeTop: 100,
-    safeBottom: 64,
-    safeX: 72,
+    safeTop: 80,
+    safeBottom: 72,
+    safeX: 80,
     safeRightExtra: 0,
-    shotPadding: 56,
-    shotRadius: 18,
-    captionKicker: 22,
-    captionTitle: 54,
-    captionLine: 28,
-    titleMeta: 28,
-    titleName: 120,
-    titleRole: 48,
-    titlePitch: 32,
-    outroUrl: 84,
-    outroLine: 32,
-    framePadX: 120,
+    shotPadding: 0,
+    shotRadius: 0,
+    captionKicker: 20,
+    captionTitle: 48,
+    captionLine: 26,
+    titleMeta: 24,
+    titleName: 96,
+    titleRole: 40,
+    titlePitch: 30,
+    outroUrl: 72,
+    outroLine: 28,
+    framePadX: 100,
     useTightDisplay: false,
+    cliMaxWidth: 720,
+    cliPadTop: 140,
+    cliPadX: 80,
+    cliFontSize: 26,
   };
 }

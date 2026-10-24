@@ -6,12 +6,14 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import { useTourLayout } from "../layout";
 import { colors, fonts } from "../theme";
 
 /** Crisp Gavel CLI plane — drawn in Remotion, not upscaled from a screenshot. */
 export const CliPanel: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+  const layout = useTourLayout();
 
   const enter = interpolate(frame, [0.1 * fps, 0.7 * fps], [0, 1], {
     extrapolateLeft: "clamp",
@@ -29,31 +31,35 @@ export const CliPanel: React.FC = () => {
       extrapolateLeft: "clamp",
       extrapolateRight: "clamp",
     });
-    return <div style={{ opacity: o, marginBottom: 6 }}>{text}</div>;
+    return <div style={{ opacity: o, marginBottom: layout.vertical ? 6 : 8 }}>{text}</div>;
   };
 
   return (
     <AbsoluteFill
       style={{
-        justifyContent: "flex-start",
-        paddingTop: 160,
-        paddingLeft: 36,
-        paddingRight: 64,
+        justifyContent: layout.vertical ? "flex-start" : "center",
+        alignItems: layout.vertical ? "stretch" : "flex-end",
+        paddingTop: layout.cliPadTop,
+        paddingBottom: layout.vertical ? 320 : 120,
+        paddingLeft: layout.vertical ? layout.cliPadX : undefined,
+        paddingRight: layout.cliPadX,
         opacity: enter,
       }}
     >
       <div
         style={{
           width: "100%",
+          maxWidth: layout.cliMaxWidth,
           borderRadius: 14,
           border: `1px solid ${colors.border}`,
           overflow: "hidden",
           backgroundColor: "rgba(7, 10, 16, 0.92)",
           translate: `0 ${rise}px`,
           fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
-          fontSize: 22,
+          fontSize: layout.cliFontSize,
           lineHeight: 1.45,
           color: colors.text,
+          boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
         }}
       >
         <div

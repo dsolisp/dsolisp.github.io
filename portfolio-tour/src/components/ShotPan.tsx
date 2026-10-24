@@ -26,7 +26,7 @@ export const ShotPan: React.FC<ShotPanProps> = ({
   startScale = 1.02,
   endScale = 1.08,
   startY = 0,
-  endY = -28,
+  endY = -36,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames, fps } = useVideoConfig();
@@ -48,7 +48,6 @@ export const ShotPan: React.FC<ShotPanProps> = ({
   });
 
   if (layout.vertical) {
-    // Preserve capture aspect — never force width+height 100% (that upscales ugly).
     return (
       <AbsoluteFill style={{ opacity: reveal }}>
         <div
@@ -93,45 +92,45 @@ export const ShotPan: React.FC<ShotPanProps> = ({
     );
   }
 
+  // Landscape: full-bleed shot + left/bottom scrim (no inset card).
   return (
-    <AbsoluteFill
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        padding: layout.shotPadding,
-        opacity: reveal,
-      }}
-    >
+    <AbsoluteFill style={{ opacity: reveal, overflow: "hidden" }}>
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          borderRadius: layout.shotRadius,
-          border: `1px solid ${colors.border}`,
-          overflow: "hidden",
-          backgroundColor: colors.bgAlt,
-          boxShadow: "0 28px 80px rgba(0, 0, 0, 0.45)",
+          position: "absolute",
+          inset: 0,
+          scale,
+          translate: `0 ${translateY}px`,
         }}
       >
-        <div
+        <Img
+          src={staticFile(file)}
           style={{
             width: "100%",
             height: "100%",
-            scale,
-            translate: `0 ${translateY}px`,
+            objectFit: "cover",
+            objectPosition: "top center",
           }}
-        >
-          <Img
-            src={staticFile(file)}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "top center",
-            }}
-          />
-        </div>
+        />
       </div>
+      <AbsoluteFill
+        style={{
+          backgroundImage: `
+            linear-gradient(
+              90deg,
+              rgba(6, 8, 13, 0.82) 0%,
+              rgba(6, 8, 13, 0.35) 42%,
+              transparent 62%
+            ),
+            linear-gradient(
+              180deg,
+              transparent 48%,
+              rgba(6, 8, 13, 0.55) 72%,
+              rgba(6, 8, 13, 0.92) 100%
+            )
+          `,
+        }}
+      />
     </AbsoluteFill>
   );
 };

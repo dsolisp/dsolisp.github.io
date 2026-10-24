@@ -3,5 +3,5 @@ dist
 .DS_Store
 .env
 
-# Ignore the output video from Git but not videos you import into src/.
+# Local render scratch (use exports/ for committed MP4s)
 out
